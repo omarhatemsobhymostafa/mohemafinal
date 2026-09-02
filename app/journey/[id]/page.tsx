@@ -1,0 +1,211 @@
+
+import axios from "axios";
+import WeekSelector from "./../../components/WeekSelector";
+import Image from "next/image";
+import Link from "next/link";
+import type { Metadata } from "next";
+
+type Props = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
+  const { id } = await params;
+
+  const weekNumber = id.replace("week_", "");
+
+  return {
+    title: `الأسبوع ${weekNumber} من الحمل | مهمة`,
+    description: `تعرفي على تطورات الحمل في الأسبوع ${weekNumber}، وتطور الجنين وأهم النصائح التي تحتاجينها.`,
+    keywords: [
+      `الأسبوع ${weekNumber} من الحمل`,
+      "الحمل",
+      "تطور الجنين",
+      "نصائح الحمل",
+      "مهمة",
+    ],
+  };
+}
+export default async function JourneyPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+
+  const weeksData = await axios.get(`https://mohema.onrender.com/weeksdata/${id}`)
+const weekNo = Number(
+  weeksData.data.weekNumber.replace("week_", "")
+);
+  return (
+    <main
+      dir="rtl"
+      className="min-h-screen bg-background pb-32 text-on-background"
+    >      <div className="mx-auto w-full max-w-3xl px-5 pt-8 md:px-6 md:pt-12">
+
+        {/* عنوان الصفحة */}
+        <div className="mb-8">
+          <p className="mb-2 text-sm font-medium text-primary">
+            رحلتك الجميلة
+          </p>
+
+          <h1 className="text-3xl font-bold text-on-surface md:text-4xl">
+            الحمل أسبوعًا بأسبوع
+          </h1>
+
+          <p className="mt-3 text-base leading-7 text-on-surface-variant">
+            تابعي تطورات طفلك والتغيرات التي تحدث لجسمك خلال رحلة الحمل.
+          </p>
+        </div>
+
+        {/* اختيار الأسبوع */}
+        <WeekSelector />
+
+        {/* الأسبوع الحالي */}
+        <section className="mt-8 overflow-hidden rounded-2xl border border-outline-variant bg-surface-container">
+          <div className="p-6 md:p-8">
+
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <p className="text-sm text-primary">
+                  أنتِ الآن في
+                </p>
+
+                <h2 className="mt-1 text-3xl font-bold text-on-surface">
+                  الأسبوع {weeksData.data.weekNumber.replace('week_', '')}
+                </h2>
+              </div>
+
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-container">
+                <span className="material-symbols-outlined text-3xl text-on-primary-container">
+                  child_care
+                </span>
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-xl bg-surface-container-high">
+            <Image 
+            src={`/wbw-baby/wbw-your-baby-2021-alt-w${weeksData.data.weekNumber.replace('week_' , '').toString().padStart(2, "0")}-1200x1200.jpg`}
+             alt="حجم الجنين في الأسبوع 12" 
+             width={800} 
+             height={400} 
+             className="h-auto w-full object-cover" />
+            </div>
+
+            <div className="mt-6">
+              <h3 className="text-xl font-semibold text-on-surface">
+                {weeksData.data.babySize.slice(0, 30)}...
+              </h3>
+
+              <p className="mt-2 leading-7 text-on-surface-variant">
+                {weeksData.data.babySize}
+              </p>
+            </div>
+
+
+          </div>
+        </section>
+
+        {/* تطور الطفل */}
+        <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
+          <div>
+            <div className="flex items-center gap-3">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary-container">
+                <span className="material-symbols-outlined text-secondary">
+                  child_friendly
+                </span>
+              </div>
+
+              <h2 className="text-xl font-bold text-on-surface">
+                تطور طفلك
+              </h2>
+            </div>
+
+            <div>
+              <p className="mt-3 text-on-surface-variant">
+                {weeksData.data.babyLooks}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* جسمك */}
+        <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
+          <div>
+            <div className="flex items-center gap-3">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary-container">
+                <span className="material-symbols-outlined text-secondary">
+                  woman
+                </span>
+              </div>
+
+              <h2 className="text-xl font-bold text-on-surface">
+                جسمك هذا الاسبوع
+              </h2>
+            </div>
+
+            <div>
+              <p className="mt-3 text-on-surface-variant">
+                {weeksData.data.WhappenInBody}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* اعراض */}
+        <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
+          <div>
+            <div className="flex items-center gap-3">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary-container">
+                <span className="material-symbols-outlined text-secondary">
+                  sick
+                </span>
+              </div>
+
+              <h2 className="text-xl font-bold text-on-surface">
+                الأعراض
+              </h2>
+            </div>
+
+            <div>
+              <p className="mt-3 text-on-surface-variant">
+                {weeksData.data.sympotyms}
+              </p>
+            </div>
+          </div>
+        </section>
+        {/* التنقل بين الأسابيع */}
+        <section className="mt-8 rounded-2xl border border-outline-variant bg-surface-container-lowest p-5">
+          <h2 className="mb-4 text-center text-lg font-bold text-on-surface">
+            التنقل بين الأسابيع
+          </h2>
+
+          <div className="grid grid-cols-2 gap-3">
+<Link
+  href={`/journey/week_${Math.max(weekNo - 1, 4)}`}
+  className="flex items-center justify-center gap-2 rounded-xl border border-outline-variant bg-surface-container px-4 py-3 text-sm font-semibold text-on-surface"
+>
+  <span className="material-symbols-outlined">
+    arrow_forward
+  </span>
+  الأسبوع السابق
+</Link>
+
+<Link
+  href={`/journey/week_${weekNo + 1}`}
+  className="flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-on-primary"
+>
+  الأسبوع التالي
+
+  <span className="material-symbols-outlined">
+    arrow_back
+  </span>
+</Link>
+          </div>
+        </section>
+
+      </div>
+
+    </main>
+  );
+}
