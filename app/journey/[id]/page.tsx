@@ -253,11 +253,34 @@ export default async function JourneyPage({
             </div>
 
             <p className="mt-3 text-on-surface-variant">
-              {weeksData.data.sympotyms}
+{weeksData.data.sympotyms.split("\n").map((line, index) => (
+  <div key={index}>{line}</div>
+))}
             </p>
 
           </div>
         </section>
+
+        {weeksData.data.option1 ? (        <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
+          <div>
+
+            <p className="mt-3 text-on-surface-variant">
+              {weeksData.data.option1}
+            </p>
+
+          </div>
+        </section>):null
+        }        {weeksData.data.option2 ? (        <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
+          <div>
+
+            <p className="mt-3 text-on-surface-variant">
+              {weeksData.data.option2}
+            </p>
+
+          </div>
+        </section>):null
+        }
+
 
         {/* التنقل بين الأسابيع */}
         <section className="mt-8 rounded-2xl border border-outline-variant bg-surface-container-lowest p-5">
