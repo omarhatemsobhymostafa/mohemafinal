@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Ai from './../../components/Ai'
  import ScrollReavel from "../../components/ScrollReavel";
 type Props = {
   params: Promise<{
@@ -302,6 +303,7 @@ export default async function JourneyPage({
          </section>
           </ScrollReavel>
 
+      <Ai/>
 
         {/* التنقل بين الأسابيع */}
         <section className="mt-8 rounded-2xl border border-outline-variant bg-surface-container-lowest p-5">

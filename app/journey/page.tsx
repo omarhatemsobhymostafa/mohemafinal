@@ -67,7 +67,7 @@ export default async function JourneyPage() {
 
         {/* اختيار الأسبوع */}
         <WeekSelector />
-
+        
        
 
       </div>
