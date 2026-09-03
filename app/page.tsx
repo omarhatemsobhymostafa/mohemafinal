@@ -1,11 +1,7 @@
-"use client";
-
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const HomePage = () => {
-  const router = useRouter();
-
   const benefits = [
     {
       icon: "calendar_month",
@@ -61,7 +57,7 @@ const HomePage = () => {
               src="/hero.png"
               width={600}
               height={600}
-              alt="Mother and baby illustration"
+              alt="مهمة - رحلة الحمل أسبوعًا بأسبوع"
               className=" h-auto w-full scale-150 object-contain mix-blend-screen "
             />
           </div>
@@ -79,19 +75,19 @@ const HomePage = () => {
 
           <div className="mt-4 flex w-full flex-col gap-4 md:flex-row md:justify-center">
 
-            <button
-              onClick={() => router.push("/journey")}
+            <Link
+              href="/journey"
               className="rounded-full bg-primary-container px-10 py-4 text-lg font-bold text-on-primary-container transition-all hover:brightness-110"
             >
               ابدئي رحلتك
-            </button>
+            </Link>
 
-            <button
-              onClick={() => router.push("/product")}
+            <Link
+              href="/product"
               className="rounded-full border border-outline-variant bg-surface-container-lowest px-10 py-4 text-lg font-medium text-on-surface transition-colors hover:bg-surface-container-low"
             >
-              "اكتشفي "قرة عيني
-            </button>
+              &quot;اكتشفي &quot;قرة عيني
+            </Link>
 
           </div>
         </section>

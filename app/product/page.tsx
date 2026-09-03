@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "قرة عيني | جورنال الحمل والأمومة | مهمة",
+  title: "قرة عيني | جورنال الحمل والأمومة",
   description:
     "قرة عيني جورنال مخصص لتوثيق أجمل لحظات رحلة الحمل، وتسجيل المشاعر والذكريات قبل ولادة طفلك.",
   keywords: [
@@ -13,11 +13,21 @@ export const metadata: Metadata = {
     "جورنال الأمومة",
     "مهمة",
   ],
+  alternates: { canonical: "/product" },
   openGraph: {
     title: "قرة عيني | جورنال الحمل والأمومة",
     description:
       "وثقي أجمل لحظات رحلة الحمل مع جورنال قرة عيني من مهمة.",
     type: "website",
+    url: "/product",
+    images: [{ url: "/product.jpeg", width: 800, height: 800, alt: "قرة عيني - جورنال الحمل والأمومة" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "قرة عيني | جورنال الحمل والأمومة",
+    description:
+      "قرة عيني جورنال مميز لتوثيق رحلة الحمل واللحظات الجميلة خلال فترة الحمل والأمومة.",
+    images: ["/product.jpeg"],
   },
 };
 export default function QoratEinyPage() {
@@ -26,6 +36,19 @@ export default function QoratEinyPage() {
       dir="rtl"
       className="min-h-screen bg-background text-on-background"
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "قرة عيني | جورنال الحمل والأمومة",
+            description: "قرة عيني جورنال مميز لتوثيق رحلة الحمل واللحظات الجميلة خلال فترة الحمل والأمومة.",
+            url: "https://mohema.vercel.app/product",
+            inLanguage: "ar",
+          }),
+        }}
+      />
       {/* Hero */}
       <section className="min-h-[80vh] bg-surface-container-lowest">
         <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-5 py-12 md:grid-cols-2 md:px-10 md:py-20">
@@ -34,7 +57,7 @@ export default function QoratEinyPage() {
           <div className="overflow-hidden rounded-2xl border border-outline-variant bg-surface-container">
             <Image
               src="/product.jpeg"
-              alt="قرة عيني Journal"
+              alt="قرة عيني - جورنال الحمل والأمومة"
               width={800}
               height={800}
               className="h-full w-full object-cover"

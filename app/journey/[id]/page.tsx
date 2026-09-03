@@ -4,6 +4,7 @@ import WeekSelector from "./../../components/WeekSelector";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{
@@ -16,11 +17,14 @@ export async function generateMetadata({
 }: Props): Promise<Metadata> {
   const { id } = await params;
 
-  const weekNumber = id.replace("week_", "");
+  const weekMatch = /^week_([1-9]|[1-3][0-9]|40)$/.exec(id);
+  const weekNumber = weekMatch?.[1] ?? "";
+  const title = `الأسبوع ${weekNumber} من الحمل | تطورات الحمل ونصائح مهمة`;
+  const description = `تعرفي على تطورات الجنين في الأسبوع ${weekNumber} من الحمل، وأعراض الحمل وأهم النصائح التي تساعدك خلال هذه المرحلة.`;
 
   return {
-    title: `الأسبوع ${weekNumber} من الحمل | مهمة`,
-    description: `تعرفي على تطورات الحمل في الأسبوع ${weekNumber}، وتطور الجنين وأهم النصائح التي تحتاجينها.`,
+    title,
+    description,
     keywords: [
       `الأسبوع ${weekNumber} من الحمل`,
       "الحمل",
@@ -28,10 +32,29 @@ export async function generateMetadata({
       "نصائح الحمل",
       "مهمة",
     ],
+    alternates: { canonical: `/journey/${id}` },
+    openGraph: {
+      type: "article",
+      url: `/journey/${id}`,
+      title,
+      description,
+      images: [{ url: "/hero.png", alt: `مهمة - الأسبوع ${weekNumber} من الحمل` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/hero.png"],
+    },
   };
 }
 export default async function JourneyPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  const weekMatch = /^week_([1-9]|[1-3][0-9]|40)$/.exec(id);
+
+  if (!weekMatch) {
+    notFound();
+  }
 
   const weeksData = await axios.get(`https://mohema.onrender.com/weeksdata/${id}`)
 const weekNo = Number(
@@ -42,6 +65,18 @@ const weekNo = Number(
       dir="rtl"
       className="min-h-screen bg-background pb-32 text-on-background"
     >      <div className="mx-auto w-full max-w-3xl px-5 pt-8 md:px-6 md:pt-12">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              name: `الأسبوع ${weekNo} من الحمل`,
+              url: `https://mohema.vercel.app/journey/${id}`,
+              inLanguage: "ar",
+            }),
+          }}
+        />
 
         {/* عنوان الصفحة */}
         <div className="mb-8">
@@ -85,8 +120,8 @@ const weekNo = Number(
 
             <div className="overflow-hidden rounded-xl bg-surface-container-high">
             <Image 
-            src={`/wbw-baby/wbw-your-baby-2021-alt-w${weeksData.data.weekNumber.replace('week_' , '').toString().padStart(2, "0")}-1200x1200.jpg`}
-             alt="حجم الجنين في الأسبوع 12" 
+            src={`/wbw-baby/baby-week-${weeksData.data.weekNumber.replace('week_' , '').toString().padStart(2, "0")}.jpg`}
+             alt={`حجم الجنين في الأسبوع ${weekNo} من الحمل`} 
              width={800} 
              height={400} 
              className="h-auto w-full object-cover" />
@@ -182,7 +217,7 @@ const weekNo = Number(
 
           <div className="grid grid-cols-2 gap-3">
 <Link
-  href={`/journey/week_${Math.max(weekNo - 1, 4)}`}
+  href={`/journey/week_${Math.max(weekNo - 1, 1)}`}
   className="flex items-center justify-center gap-2 rounded-xl border border-outline-variant bg-surface-container px-4 py-3 text-sm font-semibold text-on-surface"
 >
   <span className="material-symbols-outlined">
@@ -192,7 +227,7 @@ const weekNo = Number(
 </Link>
 
 <Link
-  href={`/journey/week_${weekNo + 1}`}
+  href={`/journey/week_${Math.min(weekNo + 1, 40)}`}
   className="flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-on-primary"
 >
   الأسبوع التالي
