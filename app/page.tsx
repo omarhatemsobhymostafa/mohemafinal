@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import ScrollReavel from './components/ScrollReavel.tsx'
+import ScrollReavel from './components/ScrollReavel'
 const HomePage = () => {
     const [selectedWeek, setSelectedWeek] = useState<string | null>(null);
 
