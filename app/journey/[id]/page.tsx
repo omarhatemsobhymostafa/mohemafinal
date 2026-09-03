@@ -252,12 +252,14 @@ export default async function JourneyPage({
               </h2>
             </div>
 
-            <p className="mt-3 text-on-surface-variant">
-{weeksData.data.sympotyms.split("\n").map((line, index) => (
-  <div key={index}>{line}</div>
-))}
-            </p>
-
+       <div className="mt-3 text-on-surface-variant">
+  {weeksData.data.sympotyms.split("\n").map((line, index) => (
+    <span key={index}>
+      {line}
+      <div></div>
+    </span>
+  ))}
+</div>
           </div>
         </section>
 
