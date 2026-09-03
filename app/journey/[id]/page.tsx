@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-
+ import ScrollReavel from "../../components/ScrollReavel";
 type Props = {
   params: Promise<{
     id: string;
@@ -122,9 +122,14 @@ export default async function JourneyPage({
         </div>
 
         {/* اختيار الأسبوع */}
+                  <ScrollReavel>
+
         <WeekSelector />
+          </ScrollReavel>
 
         {/* الأسبوع الحالي */}
+                  <ScrollReavel>
+
         <section className="mt-8 overflow-hidden rounded-2xl border border-outline-variant bg-surface-container">
           <div className="p-6 md:p-8">
 
@@ -189,8 +194,11 @@ export default async function JourneyPage({
 
           </div>
         </section>
+          </ScrollReavel>
 
         {/* تطور الطفل */}
+                  <ScrollReavel>
+
         <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
           <div>
 
@@ -212,8 +220,11 @@ export default async function JourneyPage({
 
           </div>
         </section>
+          </ScrollReavel>
 
         {/* جسمك هذا الأسبوع */}
+                  <ScrollReavel>
+
         <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
           <div>
 
@@ -235,8 +246,11 @@ export default async function JourneyPage({
 
           </div>
         </section>
+          </ScrollReavel>
 
         {/* الأعراض */}
+                  <ScrollReavel>
+
         <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
           <div>
 
@@ -262,7 +276,10 @@ export default async function JourneyPage({
 </div>
           </div>
         </section>
+          </ScrollReavel>
 
+          <ScrollReavel>
+ <section>
         {weeksData.data.option1 ? (        <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
           <div>
 
@@ -282,6 +299,8 @@ export default async function JourneyPage({
           </div>
         </section>):null
         }
+         </section>
+          </ScrollReavel>
 
 
         {/* التنقل بين الأسابيع */}
@@ -296,7 +315,7 @@ export default async function JourneyPage({
             {/* الأسبوع السابق */}
             <Link
               href={`/journey/week_${Math.max(weekNo - 1, 1)}`}
-              className="flex items-center justify-center gap-2 rounded-xl border border-outline-variant bg-surface-container px-4 py-3 text-sm font-semibold text-on-surface transition hover:bg-surface-container-high"
+              className="flex items-center justify-center gap-2 rounded-xl border border-outline-variant bg-surface-container px-4 py-3 text-sm font-semibold text-on-surface"
             >
               <span className="material-symbols-outlined">
                 arrow_forward
@@ -308,7 +327,7 @@ export default async function JourneyPage({
             {/* الأسبوع التالي */}
             <Link
               href={`/journey/week_${Math.min(weekNo + 1, 40)}`}
-              className="flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-on-primary transition hover:opacity-90"
+              className="flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-on-primary"
             >
               الأسبوع التالي
 

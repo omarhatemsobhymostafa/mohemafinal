@@ -13,7 +13,7 @@ export default function NotFound() {
           <Link
             href="/"
             aria-label="العودة"
-            className="text-[#ffb2be] hover:opacity-80 transition-opacity active:scale-95 flex items-center justify-center w-10 h-10 rounded-full"
+            className="text-[#ffb2be] flex items-center justify-center w-10 h-10 rounded-full"
           >
             <span className="material-symbols-outlined">
               arrow_forward
@@ -62,14 +62,14 @@ export default function NotFound() {
           <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
             <Link
               href="/"
-              className="inline-flex items-center justify-center px-8 py-4 bg-[#FFB2BE] text-[#121212] text-base font-bold rounded-full hover:bg-white transition-colors duration-300 shadow-[0_0_20px_-5px_rgba(255,178,190,0.4)] w-full sm:w-auto"
+              className="inline-flex items-center justify-center px-8 py-4 bg-[#FFB2BE] text-[#121212] text-base font-bold rounded-full shadow-[0_0_20px_-5px_rgba(255,178,190,0.4)] w-full sm:w-auto"
             >
               العودة للرئيسية
             </Link>
 
             <button
               onClick={() => window.location.reload()}
-              className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-[#524345] text-[#e5e2e1] text-base font-semibold rounded-full hover:border-[#ffb2be] hover:text-[#ffb2be] transition-colors duration-300 w-full sm:w-auto"
+              className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-[#524345] text-[#e5e2e1] text-base font-semibold rounded-full w-full sm:w-auto"
             >
               المحاولة مرة أخرى
             </button>
@@ -84,21 +84,21 @@ export default function NotFound() {
           <nav className="flex gap-6 items-center flex-wrap justify-center">
             <Link
               href="/privacy"
-              className="text-xs font-semibold text-[#E2E2E6] hover:text-[#ffb2be] transition-colors"
+              className="text-xs font-semibold text-[#E2E2E6]"
             >
               سياسة الخصوصية
             </Link>
 
             <Link
               href="/terms"
-              className="text-xs font-semibold text-[#E2E2E6] hover:text-[#ffb2be] transition-colors"
+              className="text-xs font-semibold text-[#E2E2E6]"
             >
               شروط الاستخدام
             </Link>
 
             <Link
               href="/contact"
-              className="text-xs font-semibold text-[#E2E2E6] hover:text-[#ffb2be] transition-colors"
+              className="text-xs font-semibold text-[#E2E2E6]"
             >
               تواصل معنا
             </Link>

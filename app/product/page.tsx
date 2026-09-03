@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
+ import ScrollReavel from "../components/ScrollReavel";
 
 export const metadata: Metadata = {
   title: "قرة عيني | جورنال الحمل والأمومة",
@@ -50,6 +51,8 @@ export default function QoratEinyPage() {
         }}
       />
       {/* Hero */}
+                <ScrollReavel>
+
       <section className="min-h-[80vh] bg-surface-container-lowest">
         <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-5 py-12 md:grid-cols-2 md:px-10 md:py-20">
 
@@ -92,7 +95,7 @@ export default function QoratEinyPage() {
                 href="https://wa.me/01224653326"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-whatsapp-green px-8 py-4 text-base font-semibold text-white transition hover:scale-[1.01] sm:w-auto"
+                className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-whatsapp-green px-8 py-4 text-base font-semibold text-white sm:w-auto"
               >
                 <span className="material-symbols-outlined">
                   chat
@@ -108,8 +111,9 @@ export default function QoratEinyPage() {
           </div>
         </div>
       </section>
-
+</ScrollReavel>
       {/* Features */}
+      <ScrollReavel>
       <section className="mx-auto max-w-6xl px-5 py-16 md:px-10">
         <div className="mb-10 text-center">
           <h2 className="text-3xl font-semibold text-primary">
@@ -174,8 +178,9 @@ export default function QoratEinyPage() {
 
         </div>
       </section>
-
+</ScrollReavel>
       {/* Quote */}
+      <ScrollReavel>
       <section className="border-y border-outline-variant/30 bg-surface-container-high px-5 py-16 text-center">
         <span className="material-symbols-outlined text-4xl text-primary">
           format_quote
@@ -242,6 +247,7 @@ export default function QoratEinyPage() {
 
         </div>
       </section>
+      </ScrollReavel>
     </main>
   );
 }

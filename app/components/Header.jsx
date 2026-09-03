@@ -30,7 +30,7 @@ const Header = () => {
         {/* Mobile Menu Button */}
         <button
           type="button"
-          className="rounded-full p-2 text-primary transition-colors hover:bg-surface-variant/20 md:hidden"
+          className="rounded-full p-2 text-primary md:hidden"
           aria-label="فتح القائمة"
         >
           <span className="material-symbols-outlined">
@@ -47,7 +47,7 @@ const Header = () => {
               <li key={link.path}>
                 <Link
                   href={link.path}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
+                  className={`text-sm font-medium ${
                     isActive
                       ? "border-b-2 border-primary pb-1 font-bold text-primary"
                       : "text-on-surface-variant"
@@ -64,7 +64,7 @@ const Header = () => {
         <div className="hidden md:block">
           <Link
             href="/journey"
-            className="inline-block rounded-full bg-primary-container px-6 py-2.5 text-sm font-semibold text-on-primary-container transition-all hover:opacity-80"
+            className="inline-block rounded-full bg-primary-container px-6 py-2.5 text-sm font-semibold text-on-primary-container"
           >
             ابدئي رحلتك
           </Link>

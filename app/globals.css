@@ -83,12 +83,6 @@ body {
 
 .soft-floating {
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease;
-}
-
-.soft-floating:hover {
-  box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.7);
-  transform: translateY(-2px);
 }
 
 .snap-x-mandatory {
@@ -99,28 +93,9 @@ body {
   scroll-snap-align: center;
 }
 
-/* Skeleton Loading */
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-
-  100% {
-    background-position: 200% 0;
-  }
-}
-
 .skeleton {
   display: inline-block;
-  background: linear-gradient(
-    90deg,
-    #1c1b1b 25%,
-    #393939 50%,
-    #1c1b1b 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite linear;
+  background: #1c1b1b;
   border-radius: 0.5rem;
 }
 

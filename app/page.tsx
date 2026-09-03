@@ -1,7 +1,15 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-
+import { useEffect, useState } from "react";
+import ScrollReavel from './components/ScrollReavel.tsx'
 const HomePage = () => {
+    const [selectedWeek, setSelectedWeek] = useState<string | null>(null);
+
+  useEffect(() => {
+    setSelectedWeek(localStorage.getItem("selectedWeek"));
+  }, []);
+
   const benefits = [
     {
       icon: "calendar_month",
@@ -10,6 +18,7 @@ const HomePage = () => {
       text: "text-secondary",
     },
     {
+
       icon: "child_care",
       title: "تطور طفلك",
       color: "bg-primary-fixed/30",
@@ -50,6 +59,8 @@ const HomePage = () => {
       <main className="mx-auto flex max-w-7xl flex-col gap-20 px-container-padding py-10 md:py-20">
 
         {/* Hero Section */}
+                  <ScrollReavel>
+
         <section className="flex flex-col items-center gap-8 text-center">
 
           <div className="soft-floating mb-4 w-full max-w-[320px] overflow-hidden rounded-[20px] bg-surface-container-low p-6 md:max-w-[400px] ">
@@ -76,24 +87,28 @@ const HomePage = () => {
           <div className="mt-4 flex w-full flex-col gap-4 md:flex-row md:justify-center">
 
             <Link
-              href="/journey/week_4"
-              className="rounded-full bg-primary-container px-10 py-4 text-lg font-bold text-on-primary-container transition-all hover:brightness-110"
+      href={selectedWeek ? `/journey/${selectedWeek}` : "/journey/week_4"}
+              className="rounded-full bg-primary-container px-10 py-4 text-lg font-bold text-on-primary-container"
             >
               ابدئي رحلتك
             </Link>
 
             <Link
               href="/product"
-              className="rounded-full border border-outline-variant bg-surface-container-lowest px-10 py-4 text-lg font-medium text-on-surface transition-colors hover:bg-surface-container-low"
+              className="rounded-full border border-outline-variant bg-surface-container-lowest px-10 py-4 text-lg font-medium text-on-surface"
             >
               &quot;اكتشفي &quot;قرة عيني
             </Link>
 
           </div>
         </section>
+          </ScrollReavel>
+
 
         {/* Benefits Grid */}
-        <section className="flex flex-col gap-8">
+        <ScrollReavel>
+          
+                  <section className="flex flex-col gap-8">
 
           <h2 className="text-center text-2xl font-bold text-primary md:text-3xl">
             كيف تساعدك مهمة؟
@@ -120,8 +135,11 @@ const HomePage = () => {
 
           </div>
         </section>
+          </ScrollReavel>
 
         {/* Steps Section */}
+                <ScrollReavel>
+
         <section className="flex flex-col items-center gap-10 rounded-3xl border border-surface-variant bg-surface-container-low p-10">
 
           <h2 className="text-3xl font-bold text-primary">
@@ -163,6 +181,7 @@ const HomePage = () => {
 
           </div>
         </section>
+          </ScrollReavel>
 
       </main>
     </div>
