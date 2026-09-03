@@ -76,7 +76,7 @@ const HomePage = () => {
           <div className="mt-4 flex w-full flex-col gap-4 md:flex-row md:justify-center">
 
             <Link
-              href="/journey"
+              href="/journey/week_4"
               className="rounded-full bg-primary-container px-10 py-4 text-lg font-bold text-on-primary-container transition-all hover:brightness-110"
             >
               ابدئي رحلتك
