@@ -17,7 +17,7 @@ const publicSans = Public_Sans({
 });
 
 const BASE_URL = "https://mohema.vercel.app";
-const socialImage = { url: "/hero.png", alt: "مهمة - رحلة الحمل والأمومة" };
+const socialImage = { url: "/og-image.png", alt: "مهمة - رحلة الحمل والأمومة" };
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
