@@ -17,9 +17,8 @@ export async function generateMetadata({
 }: Props): Promise<Metadata> {
   const { id } = await params;
 
-  const weekMatch = /^week_([1-9]|[1-3][0-9]|40)$/.exec(id);
 
-  const weekNumber = weekMatch?.[1] ?? "";
+  const weekNumber = id.replace('week_' , '');
 
   const title = `الأسبوع ${weekNumber} من الحمل | تطورات الحمل ونصائح مهمة`;
 
@@ -69,19 +68,12 @@ export default async function JourneyPage({
 }: Props) {
   const { id } = await params;
 
-  // التأكد أن الرابط صحيح
-  const weekMatch = /^week_([1-9]|[1-3][0-9]|40)$/.exec(id);
 
-  if (!weekMatch) {
-    notFound();
-  }
 
-  // جلب بيانات الأسبوع
   const weeksData = await axios.get(
     `https://mohema.onrender.com/weeksdata/${id}`
   );
 
-  // رقم الأسبوع
   const weekNo = Number(
     weeksData.data.weekNumber.replace("week_", "")
   );
@@ -215,9 +207,14 @@ export default async function JourneyPage({
               </h2>
             </div>
 
-            <p className="mt-3 text-on-surface-variant">
-              {weeksData.data.babyLooks}
-            </p>
+            <div className="mt-3 text-on-surface-variant">
+              {weeksData.data.babyLooks.split("\n").map((line:string, index:number) => (
+    <span key={index}>
+      {line}
+      <div></div>
+    </span>
+  ))}
+            </div>
 
           </div>
         </section>
@@ -241,9 +238,14 @@ export default async function JourneyPage({
               </h2>
             </div>
 
-            <p className="mt-3 text-on-surface-variant">
-              {weeksData.data.WhappenInBody}
-            </p>
+            <div className="mt-3 text-on-surface-variant">
+             {weeksData.data.WhappenInBody.split("\n").map((line:string, index:number) => (
+    <span key={index}>
+      {line}
+      <div></div>
+    </span>
+  ))}
+            </div>
 
           </div>
         </section>
@@ -284,9 +286,14 @@ export default async function JourneyPage({
         {weeksData.data.option1 ? (        <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
           <div>
 
-            <p className="mt-3 text-on-surface-variant">
-              {weeksData.data.option1}
-            </p>
+            <div className="mt-3 text-on-surface-variant">
+              {weeksData.data.option1.split("\n").map((line:string, index:number) => (
+    <span key={index}>
+      {line}
+      <div></div>
+    </span>
+  ))}
+            </div>
 
           </div>
         </section>):null
@@ -342,6 +349,7 @@ export default async function JourneyPage({
         </section>
 
       </div>
+
     </main>
   );
 }

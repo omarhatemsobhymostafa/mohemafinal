@@ -1,6 +1,7 @@
 
 import WeekSelector from "./../components/WeekSelector";
 import type { Metadata } from "next";
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: "الحمل أسبوعًا بأسبوع",
@@ -66,6 +67,7 @@ export default async function JourneyPage() {
         </div>
 
         {/* اختيار الأسبوع */}
+        
         <WeekSelector />
         
        
