@@ -3,6 +3,7 @@ import { IBM_Plex_Sans_Arabic, Public_Sans } from "next/font/google";
 import "./globals.css";
 import Header from './components/Header';
 import BottomNav from './components/BottomNav';
+import { ClerkProvider } from "@clerk/nextjs";
 
 const arabicFont = IBM_Plex_Sans_Arabic({
   variable: "--font-ibm-plex-arabic",
@@ -68,6 +69,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
+        <ClerkProvider>
+
     <html
       lang="ar"
       dir="rtl"
@@ -95,5 +98,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="md:hidden"> <BottomNav /> </div>
       </body>
     </html>
+        </ClerkProvider>
+
   );
 }

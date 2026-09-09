@@ -145,34 +145,7 @@ export default async function JourneyPage({
               </div>
             </div>
 
-            {/* صورة الجنين */}
-         <div className="grid grid-cols-2 gap-3">
-  {/* صورة الجنين */}
-  <div className="overflow-hidden rounded-full bg-surface-container-high border-oultine-variant">
-    <Image
-      src={`/wbw-baby/baby-week-${weekNo
-        .toString()
-        .padStart(2, "0")}.jpg`}
-      alt={`حجم الجنين في الأسبوع ${weekNo} من الحمل`}
-      width={800}
-      height={800}
-      className="aspect-square h-full w-full object-cover"
-    />
-  </div>
-
-  {/* صورة الفاكهة */}
-  <div className="overflow-hidden rounded-full bg-surface-container-high border-outline-variant ">
-    <Image
-      src={`/wbw-fruit/fruit-week-${weekNo
-        .toString()
-        .padStart(2, "0")}.png`}
-      alt={`حجم الجنين مقارنة بالفاكهة في الأسبوع ${weekNo} من الحمل`}
-      width={800}
-      height={800}
-      className="aspect-square h-full w-full object-cover"
-    />
-  </div>
-</div>
+          
 
             {/* حجم الجنين */}
             <div className="mt-6">

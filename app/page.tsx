@@ -58,6 +58,7 @@ const HomePage = () => {
                 src="/hero.png"
                 width={600}
                 height={600}
+                loading="eager"
                 alt="مهمة - رحلة الحمل أسبوعًا بأسبوع"
                 className=" h-auto w-full scale-150 object-contain mix-blend-screen "
               />

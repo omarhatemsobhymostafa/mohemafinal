@@ -1,6 +1,7 @@
 
 "use client";
 
+import { Show, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -17,7 +18,10 @@ const Header = () => {
     <header className="sticky top-0 z-50 border-b border-surface-variant bg-surface/80 shadow-sm backdrop-blur-md">
       <nav className="mx-auto flex w-full max-w-7xl flex-row-reverse items-center justify-between px-container-padding py-4">
         
-        {/* Logo */}
+
+        <Show when={'signed-in'}>
+          <UserButton/>
+        </Show>
         <Link
           href="/"
           className="flex cursor-pointer items-center gap-4"
