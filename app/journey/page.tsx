@@ -1,12 +1,12 @@
 
 import WeekSelector from "./../components/WeekSelector";
-import type { Metadata } from "next";
-import { Suspense } from 'react';
+import { createPageMetadata } from "../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "الحمل أسبوعًا بأسبوع",
   description:
     "تابعي رحلة الحمل أسبوعًا بأسبوع وتعرفي على تطورات الجنين وأعراض الحمل وأهم النصائح لكل مرحلة.",
+  path: "/journey",
   keywords: [
     "الحمل أسبوعًا بأسبوع",
     "متابعة الحمل",
@@ -33,22 +33,8 @@ export const metadata: Metadata = {
 };
 export default async function JourneyPage() {
   return (
-    <main
-      dir="rtl"
-      className="min-h-screen bg-background pb-32 text-on-background"
-    >      <div className="mx-auto w-full max-w-3xl px-5 pt-8 md:px-6 md:pt-12">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebPage",
-              name: "الحمل أسبوعًا بأسبوع",
-              description: "تابعي رحلة الحمل أسبوعًا بأسبوع وتعرفي على تطورات الجنين وأعراض الحمل وأهم النصائح لكل مرحلة.",
-              url: "https://mohema.vercel.app/journey",
-              inLanguage: "ar",
-            }),
-          }}
+    ],
+  });
         />
 
         {/* عنوان الصفحة */}

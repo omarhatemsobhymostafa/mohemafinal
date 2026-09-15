@@ -1,8 +1,8 @@
 import Image from "next/image";
-import type { Metadata } from "next";
 import ScrollReavel from "../components/ScrollReavel";
+import { createPageMetadata } from "../lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "قرة عيني | جورنال الحمل والأمومة",
   description:
     "قرة عيني جورنال مخصص لتوثيق أجمل لحظات رحلة الحمل، وتسجيل المشاعر والذكريات قبل ولادة طفلك.",
@@ -14,32 +14,16 @@ export const metadata: Metadata = {
     "جورنال الأمومة",
     "مهمة",
   ],
-  alternates: {
-    canonical: "/product",
-  },
-  openGraph: {
-    title: "قرة عيني | جورنال الحمل والأمومة",
-    description:
-      "وثقي أجمل لحظات رحلة الحمل مع جورنال قرة عيني من مهمة.",
-    type: "website",
-    url: "/product",
-    images: [
-      {
-        url: "/product.jpeg",
-        width: 800,
-        height: 800,
-        alt: "قرة عيني - جورنال الحمل والأمومة",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "قرة عيني | جورنال الحمل والأمومة",
-    description:
-      "قرة عيني جورنال مميز لتوثيق رحلة الحمل واللحظات الجميلة خلال فترة الحمل والأمومة.",
-    images: ["/product.jpeg"],
-  },
-};
+  path: "/product",
+  image: [
+    {
+      url: "/product.jpeg",
+      width: 800,
+      height: 800,
+      alt: "قرة عيني - جورنال الحمل والأمومة",
+    },
+  ],
+});
 
 const features = [
   {

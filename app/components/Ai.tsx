@@ -2,19 +2,22 @@
 
   import { useEffect, useState } from "react";
 
-  export default function Ai() {
-    const [week, setWeek] = useState<number | null>(null);
+  type AiProps = {
+    week?: number | null;
+  };
+
+  export default function Ai({ week = null }: AiProps) {
     const [advice, setAdvice] = useState("");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
       let cancelled = false;
+      setAdvice("");
+      setLoading(true);
 
       async function loadAdvice() {
         try {
-          const savedWeek = localStorage.getItem("selectedWeek");
-
-          if (!savedWeek) {
+          if (week === null || week === undefined) {
             if (!cancelled) {
               setAdvice("اختاري أسبوع الحمل أولًا 🤍");
               setLoading(false);
@@ -22,11 +25,7 @@
             return;
           }
 
-          const match = savedWeek.match(/^week_(\d+)$/);
-
-          const currentWeek = match
-            ? Number(match[1])
-            : Number(savedWeek);
+          const currentWeek = Number(week);
 
           if (
             !Number.isInteger(currentWeek) ||
@@ -38,10 +37,6 @@
               setLoading(false);
             }
             return;
-          }
-
-          if (!cancelled) {
-            setWeek(currentWeek);
           }
 
           const cacheKey = `ai_advice_week_${currentWeek}`;
@@ -117,14 +112,14 @@
       return () => {
         cancelled = true;
       };
-    }, []);
+    }, [week]);
 
     return (
       <div
         dir="rtl"
-        className=" rounded-3xl border border-outline-variant/40 bg-surface-container p-6 mt-12"
+        className="my-3 rounded-3xl border border-[#302a2d] bg-gradient-to-b from-[#211f26] to-[#1a191d] p-4"
       >
-        <div className="mb-4 flex items-center gap-3">
+        <div className="mb-4 flex items-center gap-3 ">
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-xl text-on-primary">
             ✦
           </div>

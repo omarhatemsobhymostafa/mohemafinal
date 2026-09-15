@@ -3,7 +3,14 @@ import { IBM_Plex_Sans_Arabic, Public_Sans } from "next/font/google";
 import "./globals.css";
 import Header from './components/Header';
 import BottomNav from './components/BottomNav';
+import UserSync from './components/UserSync';
 import { ClerkProvider } from "@clerk/nextjs";
+import {
+  BASE_URL,
+  DEFAULT_DESCRIPTION,
+  SITE_NAME,
+  SOCIAL_IMAGE,
+} from "./lib/seo";
 
 const arabicFont = IBM_Plex_Sans_Arabic({
   variable: "--font-ibm-plex-arabic",
@@ -17,17 +24,13 @@ const publicSans = Public_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
-const BASE_URL = "https://mohema.vercel.app";
-const socialImage = { url: "/og-image.png", alt: "مهمة - رحلة الحمل والأمومة" };
-
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "مهمة | دليلك في رحلة الحمل والأمومة",
+    default: `${SITE_NAME} | دليلك في رحلة الحمل والأمومة`,
     template: "%s | مهمة",
   },
-  description:
-    "مهمة تساعدك في متابعة رحلة الحمل أسبوعًا بأسبوع، ومعرفة تطورات الجنين وأهم النصائح والمعلومات خلال رحلة الحمل والأمومة.",
+  description: DEFAULT_DESCRIPTION,
   keywords: [
     "مهمة", "الحمل", "الحمل أسبوعًا بأسبوع", "متابعة الحمل", "تطور الجنين",
     "مراحل الحمل", "أعراض الحمل", "نصائح الحمل", "الأمومة", "قرة عيني",
@@ -37,22 +40,21 @@ export const metadata: Metadata = {
   publisher: "مهمة",
   applicationName: "مهمة",
   category: "health",
-  alternates: { canonical: "/" },
+  alternates: { canonical: BASE_URL },
   openGraph: {
     type: "website",
     locale: "ar_AR",
     url: BASE_URL,
     siteName: "مهمة",
-    title: "مهمة | دليلك في رحلة الحمل والأمومة",
-    description:
-      "مهمة تساعدك في متابعة رحلة الحمل أسبوعًا بأسبوع، ومعرفة تطورات الجنين وأهم النصائح والمعلومات خلال رحلة الحمل والأمومة.",
-    images: [socialImage],
+    title: `${SITE_NAME} | دليلك في رحلة الحمل والأمومة`,
+    description: DEFAULT_DESCRIPTION,
+    images: [SOCIAL_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "مهمة | دليلك في رحلة الحمل والأمومة",
-    description: "مهمة تساعدك في متابعة رحلة الحمل أسبوعًا بأسبوع ومعرفة تطورات الجنين.",
-    images: [socialImage.url],
+    title: `${SITE_NAME} | دليلك في رحلة الحمل والأمومة`,
+    description: DEFAULT_DESCRIPTION,
+    images: [SOCIAL_IMAGE.url],
   },
   robots: {
     index: true,
@@ -84,6 +86,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
 
       <body className="min-h-full flex flex-col">
+        <UserSync />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

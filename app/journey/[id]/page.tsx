@@ -1,11 +1,10 @@
 import axios from "axios";
 import WeekSelector from "./../../components/WeekSelector";
-import Image from "next/image";
 import Link from "next/link";
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Ai from './../../components/Ai'
  import ScrollReavel from "../../components/ScrollReavel";
+import { createPageMetadata } from "../../lib/seo";
 type Props = {
   params: Promise<{
     id: string;
@@ -14,19 +13,22 @@ type Props = {
 
 export async function generateMetadata({
   params,
-}: Props): Promise<Metadata> {
+}: Props) {
   const { id } = await params;
 
+  const weekNumber = id.replace("week_", "");
+  if (!/^week_(?:[1-9]|[1-3][0-9]|40)$/.test(id)) {
+    notFound();
+  }
 
-  const weekNumber = id.replace('week_' , '');
-
-  const title = `الأسبوع ${weekNumber} من الحمل | تطورات الحمل ونصائح مهمة`;
+  const title = `الأسبوع ${weekNumber} من الحمل`;
 
   const description = `تعرفي على تطورات الجنين في الأسبوع ${weekNumber} من الحمل، وأعراض الحمل وأهم النصائح التي تساعدك خلال هذه المرحلة.`;
 
-  return {
+  return createPageMetadata({
     title,
     description,
+    path: `/journey/${id}`,
 
     keywords: [
       `الأسبوع ${weekNumber} من الحمل`,
@@ -35,32 +37,16 @@ export async function generateMetadata({
       "نصائح الحمل",
       "مهمة",
     ],
-
-    alternates: {
-      canonical: `/journey/${id}`,
-    },
-
-    openGraph: {
-      type: "article",
-      url: `/journey/${id}`,
-      title,
-      description,
-
-      images: [
-        {
-          url: "/hero.png",
-          alt: `مهمة - الأسبوع ${weekNumber} من الحمل`,
-        },
-      ],
-    },
-
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: ["/hero.png"],
-    },
-  };
+    image: [
+      {
+        url: "/hero.png",
+        width: 600,
+        height: 600,
+        alt: `مهمة - الأسبوع ${weekNumber} من الحمل`,
+      },
+    ],
+    type: "article",
+  });
 }
 
 export default async function JourneyPage({
@@ -93,6 +79,7 @@ export default async function JourneyPage({
               "@context": "https://schema.org",
               "@type": "WebPage",
               name: `الأسبوع ${weekNo} من الحمل`,
+              description: `تعرفي على تطورات الجنين في الأسبوع ${weekNo} من الحمل، وأعراض الحمل وأهم النصائح التي تساعدك خلال هذه المرحلة.`,
               url: `https://mohema.vercel.app/journey/${id}`,
               inLanguage: "ar",
             }),
@@ -283,7 +270,7 @@ export default async function JourneyPage({
          </section>
           </ScrollReavel>
 
-      <Ai/>
+      <Ai week={weekNo} />
 
         {/* التنقل بين الأسابيع */}
         <section className="mt-8 rounded-2xl border border-outline-variant bg-surface-container-lowest p-5">

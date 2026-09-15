@@ -1,14 +1,27 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { startTransition, useEffect, useState } from "react";
 import ScrollReavel from './components/ScrollReavel'
 const HomePage = () => {
+  const router = useRouter();
+  const { isLoaded, user } = useUser();
   const [selectedWeek, setSelectedWeek] = useState<string | null>(null);
 
   useEffect(() => {
-    setSelectedWeek(localStorage.getItem("selectedWeek"));
-  }, []);
+    if (isLoaded && user) {
+      router.replace("/dashboard");
+    }
+  }, [isLoaded, router, user]);
+
+  useEffect(() => {
+    if (isLoaded && user) return;
+
+    const storedWeek = localStorage.getItem("selectedWeek");
+    startTransition(() => setSelectedWeek(storedWeek));
+  }, [isLoaded, user]);
 
   const benefits = [
     {
@@ -46,6 +59,25 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "مهمة | دليلك في رحلة الحمل والأمومة",
+            description:
+              "مهمة تساعدك في متابعة رحلة الحمل أسبوعًا بأسبوع، ومعرفة تطورات الجنين وأهم النصائح والمعلومات خلال رحلة الحمل والأمومة.",
+            url: "https://mohema.vercel.app/",
+            inLanguage: "ar",
+            isPartOf: {
+              "@type": "WebSite",
+              name: "مهمة",
+              url: "https://mohema.vercel.app/",
+            },
+          }),
+        }}
+      />
       <main className="mx-auto flex max-w-7xl flex-col gap-20 px-container-padding py-10 md:py-20">
 
         {/* Hero Section */}

@@ -5,6 +5,7 @@ import {
   Show,
   UserButton,
   SignInButton,
+  useUser,
 } from "@clerk/nextjs";
 
 import Link from "next/link";
@@ -12,13 +13,14 @@ import { usePathname } from "next/navigation";
 
 const BottomNav = () => {
   const pathname = usePathname();
+  const { user } = useUser();
 
   const navItems = [
     {
-      href: "/",
+      href: user ? "/dashboard" : "/",
       icon: "home",
-      label: "الرئيسية",
-      active: pathname === "/",
+      label: user ? "لوحتي" : "الرئيسية",
+      active: user ? pathname.startsWith("/dashboard") : pathname === "/",
     },
     {
       href: "/journey/week_4",

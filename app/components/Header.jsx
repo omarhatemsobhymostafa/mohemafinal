@@ -1,17 +1,30 @@
 
 "use client";
 
-import { Show, UserButton } from "@clerk/nextjs";
+import { Show, UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const Header = () => {
   const pathname = usePathname();
+  const { user } = useUser();
+
+  const adminEmails = (process.env.NEXT_PUBLIC_ADMIN_EMAILS ?? "")
+    .split(",")
+    .map((email) => email.trim().toLowerCase())
+    .filter(Boolean);
+
+  const isAdmin =
+    user?.publicMetadata?.role === "admin" ||
+    user?.emailAddresses?.some(({ emailAddress }) =>
+      adminEmails.includes(emailAddress.toLowerCase())
+    );
 
   const navLinks = [
-    { name: "الرئيسية", path: "/" },
+    { name: user ? "لوحة الحمل" : "الرئيسية", path: user ? "/dashboard" : "/" },
     { name: "أسبوع بأسبوع", path: "/journey" },
     { name: "قرة عيني", path: "/product" },
+    ...(isAdmin ? [{ name: "لوحة الإدارة", path: "/panel" }] : []),
   ];
 
   return (
@@ -23,7 +36,7 @@ const Header = () => {
           <UserButton/>
         </Show>
         <Link
-          href="/"
+          href={user ? "/dashboard" : "/"}
           className="flex cursor-pointer items-center gap-4"
         >
           <span className="text-xl font-bold text-primary md:text-2xl">
@@ -67,10 +80,10 @@ const Header = () => {
         {/* CTA */}
         <div className="hidden md:block">
           <Link
-            href="/journey"
+            href={user ? "/dashboard" : "/journey"}
             className="inline-block rounded-full bg-primary-container px-6 py-2.5 text-sm font-semibold text-on-primary-container"
           >
-            ابدئي رحلتك
+            {user ? "لوحة الحمل" : "ابدئي رحلتك"}
           </Link>
         </div>
 
