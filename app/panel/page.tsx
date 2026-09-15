@@ -19,7 +19,7 @@ type Week = {
 
 type FieldName = Exclude<keyof Week, "_id" | "weekNumber">;
 
-const API_URL = "http://localhost:5000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://mohema.onrender.com";
 const ADMIN_CLERK_IDS = new Set(
   (process.env.NEXT_PUBLIC_ADMIN_CLERK_IDS ?? "")
   .split(",")
