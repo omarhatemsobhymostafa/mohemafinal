@@ -171,25 +171,25 @@ export default function PanelPage() {
   }
 
   return (
-    <main dir="rtl" className="min-h-screen bg-[#121214] text-[#f5eef0] pb-10">
-      <div className="mx-auto flex min-h-screen w-full max-w-[1440px] flex-col px-4 py-5 sm:px-6 lg:px-10 lg:py-8">
-        <header className="mb-8 flex flex-col gap-5 border-b border-[#302a2d] pb-6 md:flex-row md:items-end md:justify-between">
+    <main dir="rtl" className="min-h-screen overflow-x-hidden bg-[#121214] text-[#f5eef0] pb-10">
+      <div className="mx-auto flex min-h-screen w-full max-w-[1440px] flex-col px-3 py-4 sm:px-6 sm:py-5 lg:px-10 lg:py-8">
+        <header className="mb-6 flex flex-col gap-4 border-b border-[#302a2d] pb-5 sm:mb-8 sm:gap-5 sm:pb-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#633642] bg-[#3a2027] px-3 py-1 text-xs font-semibold text-[#ffb2be]">
+            <div className="mb-3 inline-flex max-w-full items-center gap-2 rounded-full border border-[#633642] bg-[#3a2027] px-3 py-1 text-xs font-semibold text-[#ffb2be]">
               <span className="material-symbols-outlined text-[16px]">edit_note</span>
               مساحة الإدارة
             </div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-[#f5eef0] sm:text-4xl">محرر أسابيع الحمل</h1>
-            <p className="mt-2 max-w-2xl text-sm leading-7 text-[#bdb5ba]">حدّثي تفاصيل رحلة الحمل أسبوعاً بأسبوع من مكان واحد، مع معاينة سريعة للمحتوى قبل نشره.</p>
+            <h1 className="text-2xl font-extrabold tracking-tight text-[#f5eef0] sm:text-3xl lg:text-4xl">محرر أسابيع الحمل</h1>
+            <p className="mt-2 max-w-2xl text-xs leading-6 text-[#bdb5ba] sm:text-sm sm:leading-7">حدّثي تفاصيل رحلة الحمل أسبوعاً بأسبوع من مكان واحد، مع معاينة سريعة للمحتوى قبل نشره.</p>
           </div>
-          <Link href="/dashboard" className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#633642] bg-[#211f24] px-4 py-3 text-sm font-bold text-[#ffb2be] transition hover:bg-[#3a2027]">
+          <Link href="/dashboard" className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#633642] bg-[#211f24] px-4 py-3 text-sm font-bold text-[#ffb2be] transition hover:bg-[#3a2027] sm:w-auto">
             <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
             العودة للوحة الرئيسية
           </Link>
         </header>
 
-        <section className="grid flex-1 gap-5 lg:grid-cols-[260px_minmax(0,1fr)]">
-          <aside className="rounded-2xl border border-[#302a2d] bg-gradient-to-b from-[#211f26] to-[#1a191d] p-4 shadow-[0_0_25px_rgba(255,178,190,0.05)]">
+        <section className="grid min-w-0 flex-1 gap-4 sm:gap-5 lg:grid-cols-[260px_minmax(0,1fr)]">
+          <aside className="min-w-0 rounded-2xl border border-[#302a2d] bg-gradient-to-b from-[#211f26] to-[#1a191d] p-3 shadow-[0_0_25px_rgba(255,178,190,0.05)] sm:p-4">
             <div className="mb-4 flex items-center justify-between">
               <div>
                 <p className="text-[11px] font-bold text-[#8e878c]">المحتوى المتاح</p>
@@ -201,7 +201,7 @@ export default function PanelPage() {
               <span className="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[18px] text-[#8e878c]">search</span>
               <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="ابحثي برقم الأسبوع" className="w-full rounded-xl border border-[#302a2d] bg-[#18171c] py-2.5 pr-10 pl-3 text-sm text-[#f5eef0] outline-none transition placeholder:text-[#70696e] focus:border-[#ffb2be]/60" />
             </label>
-            <div className="hide-scrollbar flex max-h-[540px] flex-row gap-2 overflow-x-auto pb-1 lg:flex-col lg:overflow-y-auto lg:overflow-x-hidden">
+            <div className="hide-scrollbar flex max-h-[190px] min-w-0 flex-row gap-2 overflow-x-auto overflow-y-hidden pb-1 lg:max-h-[540px] lg:flex-col lg:overflow-y-auto lg:overflow-x-hidden">
               {isLoading ? (
                 <p className="px-2 py-5 text-sm text-[#8e878c]">جارٍ تحميل الأسابيع...</p>
               ) : filteredWeeks.length === 0 ? (
@@ -222,7 +222,7 @@ export default function PanelPage() {
           </aside>
 
           <div className="min-w-0">
-            <section className="mb-5 rounded-2xl border border-[#633642]/60 bg-gradient-to-r from-[#2c1e24] via-[#211f26] to-[#1e1c22] p-4 sm:p-5">
+            <section className="mb-4 rounded-2xl border border-[#633642]/60 bg-gradient-to-r from-[#2c1e24] via-[#211f26] to-[#1e1c22] p-3 sm:mb-5 sm:p-5">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-3">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#ffb2be]/30 bg-[#40242e] text-[#ffb2be]"><span className="material-symbols-outlined text-[25px]">calendar_month</span></div>
@@ -235,8 +235,8 @@ export default function PanelPage() {
               </div>
             </section>
 
-            <div className="grid gap-5 xl:grid-cols-[minmax(0,1.4fr)_minmax(280px,0.6fr)]">
-              <section className="rounded-2xl border border-[#302a2d] bg-gradient-to-b from-[#232128] to-[#1c1b21] p-4 sm:p-6">
+            <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1.4fr)_minmax(280px,0.6fr)] sm:gap-5">
+              <section className="min-w-0 rounded-2xl border border-[#302a2d] bg-gradient-to-b from-[#232128] to-[#1c1b21] p-3 sm:p-6">
                 <div className="mb-6 flex items-start justify-between gap-3 border-b border-[#302a2d] pb-5">
                   <div>
                     <p className="text-[11px] font-bold text-[#ffb2be]">بيانات الأسبوع</p>
