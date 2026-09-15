@@ -1,13 +1,14 @@
+
 "use client";
 
-import { Show, SignUp } from "@clerk/nextjs";
+import { Show, SignIn } from "@clerk/nextjs";
 
-export default function SignUpPage() {
+export default function SignInPage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
-      <Show when={'signed-out'}>
-        <SignUp
-          signInUrl="/signin"
+      <Show when="signed-out">
+        <SignIn
+          signUpUrl="/signup"
           appearance={{
             elements: {
               rootBox: "w-full max-w-md",
@@ -16,7 +17,7 @@ export default function SignUpPage() {
           }}
         />
       </Show>
-
-    </main >
+    </main>
   );
 }
+
