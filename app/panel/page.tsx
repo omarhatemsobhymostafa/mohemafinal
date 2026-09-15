@@ -20,10 +20,12 @@ type Week = {
 type FieldName = Exclude<keyof Week, "_id" | "weekNumber">;
 
 const API_URL = "http://localhost:5000";
-const ADMIN_EMAILS = (process.env.NEXT_PUBLIC_ADMIN_EMAILS ?? "")
+const ADMIN_CLERK_IDS = new Set(
+  (process.env.NEXT_PUBLIC_ADMIN_CLERK_IDS ?? "")
   .split(",")
-  .map((email) => email.trim().toLowerCase())
-  .filter(Boolean);
+  .map((clerkId) => clerkId.trim())
+  .filter(Boolean)
+);
 
 const fields: Array<{
   name: FieldName;
@@ -97,12 +99,7 @@ export default function PanelPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  const isAdmin =
-    !!user &&
-    (user.publicMetadata?.role === "admin" ||
-      user.emailAddresses.some(({ emailAddress }) =>
-        ADMIN_EMAILS.includes(emailAddress.toLowerCase())
-      ));
+  const isAdmin = !!user && ADMIN_CLERK_IDS.has(user.id);
 
   useEffect(() => {
     if (isLoaded && !isAdmin) {
@@ -126,6 +123,13 @@ export default function PanelPage() {
       .finally(() => setIsLoading(false));
   }, [isAdmin, isLoaded, router]);
 
+  const filteredWeeks = useMemo(() => {
+    const query = search.trim();
+    if (!query) return weeks;
+
+    return weeks.filter((item) => item.weekNumber.replace("week_", "").includes(query));
+  }, [search, weeks]);
+
   if (!isLoaded) {
     return <main dir="rtl" className="min-h-screen bg-[#121214] text-[#f5eef0] flex items-center justify-center">جارٍ التحقق من权限...</main>;
   }
@@ -133,13 +137,6 @@ export default function PanelPage() {
   if (!isAdmin) {
     return <main dir="rtl" className="min-h-screen bg-[#121214] text-[#f5eef0] flex items-center justify-center">غير مسموح لك بالدخول إلى لوحة الإدارة.</main>;
   }
-
-  const filteredWeeks = useMemo(() => {
-    const query = search.trim();
-    if (!query) return weeks;
-
-    return weeks.filter((item) => item.weekNumber.replace("week_", "").includes(query));
-  }, [search, weeks]);
 
   function selectWeek(weekNumber: string) {
     const nextWeek = weeks.find((item) => item.weekNumber === weekNumber);

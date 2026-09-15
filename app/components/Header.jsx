@@ -9,16 +9,14 @@ const Header = () => {
   const pathname = usePathname();
   const { user } = useUser();
 
-  const adminEmails = (process.env.NEXT_PUBLIC_ADMIN_EMAILS ?? "")
+  const adminClerkIds = new Set(
+    (process.env.NEXT_PUBLIC_ADMIN_CLERK_IDS ?? "")
     .split(",")
-    .map((email) => email.trim().toLowerCase())
-    .filter(Boolean);
+    .map((clerkId) => clerkId.trim())
+    .filter(Boolean)
+  );
 
-  const isAdmin =
-    user?.publicMetadata?.role === "admin" ||
-    user?.emailAddresses?.some(({ emailAddress }) =>
-      adminEmails.includes(emailAddress.toLowerCase())
-    );
+  const isAdmin = !!user && adminClerkIds.has(user.id);
 
   const navLinks = [
     { name: user ? "لوحة الحمل" : "الرئيسية", path: user ? "/dashboard" : "/" },

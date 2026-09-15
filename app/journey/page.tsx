@@ -4,9 +4,12 @@ import { createPageMetadata } from "../lib/seo";
 
 export const metadata = createPageMetadata({
   title: "الحمل أسبوعًا بأسبوع",
+
   description:
     "تابعي رحلة الحمل أسبوعًا بأسبوع وتعرفي على تطورات الجنين وأعراض الحمل وأهم النصائح لكل مرحلة.",
+
   path: "/journey",
+
   keywords: [
     "الحمل أسبوعًا بأسبوع",
     "متابعة الحمل",
@@ -16,7 +19,11 @@ export const metadata = createPageMetadata({
     "نصائح الحمل",
     "مهمة",
   ],
-  alternates: { canonical: "/journey" },
+
+  alternates: {
+    canonical: "/journey",
+  },
+
   openGraph: {
     type: "website",
     url: "/journey",
@@ -24,19 +31,19 @@ export const metadata = createPageMetadata({
     description:
       "تابعي رحلة الحمل أسبوعًا بأسبوع وتعرفي على تطورات الجنين وأعراض الحمل وأهم النصائح لكل مرحلة.",
   },
+
   twitter: {
     card: "summary_large_image",
     title: "الحمل أسبوعًا بأسبوع",
     description:
-      "تابعي رحلة الحمل أسبوعًا بأسبوع وتعرفي على تطورات الجنين وأهم النصائح لكل مرحلة.",
+      "تابعي رحلة الحمل أسبوعًا بأسبوع وتعرفي على تطورات الجنين وأعراض الحمل وأهم النصائح لكل مرحلة.",
   },
-};
+});
+
 export default async function JourneyPage() {
   return (
-    ],
-  });
-        />
-
+    <main>
+      <div className="container mx-auto px-4 py-8">
         {/* عنوان الصفحة */}
         <div className="mb-8">
           <p className="mb-2 text-sm font-medium text-primary">
@@ -53,13 +60,9 @@ export default async function JourneyPage() {
         </div>
 
         {/* اختيار الأسبوع */}
-        
         <WeekSelector />
-        
-       
-
       </div>
-
     </main>
   );
 }
+

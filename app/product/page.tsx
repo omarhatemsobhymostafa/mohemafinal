@@ -124,7 +124,7 @@ export default function QoratEinyPage() {
 
               <div className="border-b border-outline-variant pb-4">
                 <span className="text-2xl font-semibold text-on-surface">
-                  300 جـــــــ . م
+                  500 جـــــــ . م
                 </span>
               </div>
 

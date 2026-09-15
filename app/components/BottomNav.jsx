@@ -15,10 +15,19 @@ const BottomNav = () => {
   const pathname = usePathname();
   const { user } = useUser();
 
+  const adminClerkIds = new Set(
+    (process.env.NEXT_PUBLIC_ADMIN_CLERK_IDS ?? "")
+    .split(",")
+    .map((clerkId) => clerkId.trim())
+    .filter(Boolean)
+  );
+
+  const isAdmin = !!user && adminClerkIds.has(user.id);
+
   const navItems = [
     {
       href: user ? "/dashboard" : "/",
-      icon: "home",
+      icon: "dashboard",
       label: user ? "لوحتي" : "الرئيسية",
       active: user ? pathname.startsWith("/dashboard") : pathname === "/",
     },
@@ -34,6 +43,14 @@ const BottomNav = () => {
       label: "قرة عيني",
       active: pathname.startsWith("/product"),
     },
+    ...(isAdmin
+      ? [{
+          href: "/panel",
+          icon: "admin_panel_settings",
+          label: "الإدارة",
+          active: pathname.startsWith("/panel"),
+        }]
+      : []),
   ];
 
   return (
