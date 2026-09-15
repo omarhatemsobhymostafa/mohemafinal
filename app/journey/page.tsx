@@ -19,25 +19,6 @@ export const metadata = createPageMetadata({
     "نصائح الحمل",
     "مهمة",
   ],
-
-  alternates: {
-    canonical: "/journey",
-  },
-
-  openGraph: {
-    type: "website",
-    url: "/journey",
-    title: "الحمل أسبوعًا بأسبوع",
-    description:
-      "تابعي رحلة الحمل أسبوعًا بأسبوع وتعرفي على تطورات الجنين وأعراض الحمل وأهم النصائح لكل مرحلة.",
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "الحمل أسبوعًا بأسبوع",
-    description:
-      "تابعي رحلة الحمل أسبوعًا بأسبوع وتعرفي على تطورات الجنين وأعراض الحمل وأهم النصائح لكل مرحلة.",
-  },
 });
 
 export default async function JourneyPage() {
