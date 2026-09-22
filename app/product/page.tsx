@@ -17,7 +17,7 @@ export const metadata = createPageMetadata({
   path: "/product",
   image: [
     {
-      url: "/product.jpeg",
+      url: "/product.jpg",
       width: 800,
       height: 800,
       alt: "قرة عيني - جورنال الحمل والأمومة",

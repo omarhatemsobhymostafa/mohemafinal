@@ -5,6 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { startTransition, useEffect, useState } from "react";
 import ScrollReavel from './components/ScrollReavel'
+import AndroidDownloadCard from "./components/AndroidDownloadCard";
 const HomePage = () => {
   const router = useRouter();
   const { isLoaded, user } = useUser();
@@ -27,30 +28,33 @@ const HomePage = () => {
     {
       icon: "calendar_month",
       title: "متابعة الحمل",
+      description: "تابعي أسبوعك الحالي واحصلي على نصائح مناسبة لكل مرحلة.",
+      href: "/dashboard",
       color: "bg-secondary-fixed/30",
-      comming:false,
       text: "text-secondary",
     },
     {
-
       icon: "child_care",
       title: "معرفة نمو وتطور طفلك ",
+      description: "اكتشفي كيف ينمو طفلك أسبوعًا بعد أسبوع بطريقة بسيطة.",
+      href: selectedWeek ? `/journey/${selectedWeek}` : "/journey/week_4",
       color: "bg-primary-fixed/30",
-      comming:true,
       text: "text-primary",
     },
     {
       icon: "family_restroom",
-      title: "التربية الايجابية",
+      title: "رحلة أسبوعية واضحة",
+      description: "تنقلي بين أسابيع الحمل واقرئي أهم المعلومات في مكان واحد.",
+      href: "/journey",
       color: "bg-tertiary-fixed/30",
-      comming:true,
       text: "text-tertiary",
     },
     {
       icon: "favorite",
-      title: "كورسات  للأستعداد للولادة",
+      title: "قرة عيني",
+      description: "اكتبي لحظاتك واحتفظي بذكريات رحلة حملك في دفتر مميز.",
+      href: "/product",
       color: "bg-error-container/30",
-      comming:true,
       text: "text-on-error-container",
     },
   ];
@@ -96,45 +100,39 @@ const HomePage = () => {
               />
             </div>
 
-            <h1 className="text-4xl font-bold leading-tight text-primary md:text-6xl">
-              رفيقك الرقمي لرحلة الامـــــــــومة
+            <p className="mb-2 text-sm font-semibold tracking-wide text-secondary">
+              دليلك الهادئ لكل أسبوع
+            </p>
 
+            <h1 className="text-4xl font-bold leading-tight text-primary md:text-6xl">
+              مهمة، رفيقك في رحلة الأمومة
             </h1>
 
             <p className="max-w-2xl text-lg leading-relaxed text-on-surface-variant md:text-xl">
-              Femora تساعدك تتابعي حملك،نمو وتطور طفلك، وتحافظي على صحتك في كل
-              مرحلة. رفيقك الرقمي لرحلة أمومة آمنة وسعيدة.
+              كل ما تحتاجينه لتفهمي حملك، تتابعي نمو طفلك، وتعيشي كل مرحلة
+              بثقة واطمئنان.
             </p>
 
             <div className="mt-4 flex w-full flex-col gap-4 md:flex-row md:justify-center">
               <Link
-                href="/product"
-                className="rounded-full border border-outline-variant bg-surface-container-lowest px-10 py-4 text-lg font-medium text-on-surface"
-              >
-                &quot;اكتشفي &quot;قرة عيني
-              </Link>
-
-              <Link
                 href={selectedWeek ? `/journey/${selectedWeek}` : "/journey/week_4"}
-                className="rounded-full bg-primary-container px-10 py-4 text-lg font-bold text-on-primary-container"
+                className="rounded-full bg-primary-container px-10 py-4 text-lg font-bold text-on-primary-container transition-transform hover:-translate-y-1"
               >
-                الحمل اسبوع باسبوع
+                ابدئي رحلتك الآن
               </Link>
 
-
-
-
               <Link
-                href={"#"}
-                className="relative rounded-full border border-outline-variant bg-surface-container-lowest px-10 py-4 text-lg font-medium text-on-surface"
+                href="/dashboard"
+                className="rounded-full border border-outline-variant bg-surface-container-lowest px-10 py-4 text-lg font-medium text-on-surface transition-colors hover:border-primary"
               >
-          <div className="absolute right-3 top-3 rounded-full bg-primary-container px-3 py-1 text-sm font-medium text-on-primary-container">
-        قريبًا
-      </div>
-                تطور طفـــلي
+                افتحي لوحة المتابعة
               </Link>
             </div>
           </section>
+        </ScrollReavel>
+
+        <ScrollReavel>
+          <AndroidDownloadCard />
         </ScrollReavel>
 
 
@@ -144,22 +142,17 @@ const HomePage = () => {
           <section className="flex flex-col gap-8 mb-12">
 
             <h2 className="text-center text-2xl font-bold text-primary md:text-3xl">
-              كيف تساعدك Femora؟
+              كل أدوات رحلتك في مكان واحد
             </h2>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 ">
 
 {benefits.map((item, index) => (
-  <div
+  <Link
     key={index}
+    href={item.href}
     className="relative soft-floating flex flex-col items-center gap-4 rounded-[32px] border border-outline-variant bg-surface-container-low p-8 text-center"
   >
-    {item.comming && (
-      <div className="absolute right-3 top-3 rounded-full bg-primary-container px-3 py-1 text-sm font-medium text-on-primary-container">
-        قريبًا
-      </div>
-    )}
-
     <div
       className={`${item.color} ${item.text} flex h-16 w-16 items-center justify-center rounded-full p-5 shadow-md`}
     >
@@ -171,10 +164,38 @@ const HomePage = () => {
     <span className="text-xl font-semibold text-on-surface">
       {item.title}
     </span>
-  </div>
+    <p className="text-sm leading-relaxed text-on-surface-variant">
+      {item.description}
+    </p>
+    <span className="text-sm font-semibold text-primary">اكتشفي المزيد ←</span>
+  </Link>
 ))}
 
             </div>
+          </section>
+        </ScrollReavel>
+
+        <ScrollReavel>
+          <section className="grid gap-8 rounded-[32px] border border-outline-variant bg-surface-container-low p-8 md:grid-cols-3 md:p-12">
+            <div className="md:col-span-3">
+              <h2 className="text-2xl font-bold text-primary md:text-3xl">
+                كيف تبدئين مع مهمة؟
+              </h2>
+              <p className="mt-3 max-w-2xl leading-relaxed text-on-surface-variant">
+                اختاري ما يناسبك الآن، وسنرافقك بالمعلومة التي تحتاجينها في الوقت المناسب.
+              </p>
+            </div>
+            {[
+              ["01", "اختاري أسبوعك", "ابدئي من أسبوعك الحالي أو تصفحي الرحلة كاملة."],
+              ["02", "افهمي التغييرات", "تعرّفي على تطورات طفلك والنصائح المهمة لكل أسبوع."],
+              ["03", "احتفظي بذكرياتك", "اكتبي تجربتك واحتفظي بها مع قرة عيني."],
+            ].map(([number, title, description]) => (
+              <div key={number} className="border-t border-outline-variant pt-5">
+                <span className="text-sm font-bold text-secondary">{number}</span>
+                <h3 className="mt-3 text-lg font-bold text-on-surface">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-on-surface-variant">{description}</p>
+              </div>
+            ))}
           </section>
         </ScrollReavel>
 
