@@ -5,7 +5,6 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { startTransition, useEffect, useState } from "react";
 import ScrollReavel from './components/ScrollReavel'
-import AndroidDownloadCard from "./components/AndroidDownloadCard";
 const HomePage = () => {
   const router = useRouter();
   const { isLoaded, user } = useUser();
@@ -100,10 +99,6 @@ const HomePage = () => {
               />
             </div>
 
-            <p className="mb-2 text-sm font-semibold tracking-wide text-secondary">
-              دليلك الهادئ لكل أسبوع
-            </p>
-
             <h1 className="text-4xl font-bold leading-tight text-primary md:text-6xl">
               مهمة، رفيقك في رحلة الأمومة
             </h1>
@@ -130,11 +125,6 @@ const HomePage = () => {
             </div>
           </section>
         </ScrollReavel>
-
-        <ScrollReavel>
-          <AndroidDownloadCard />
-        </ScrollReavel>
-
 
         {/* Benefits Grid */}
         <ScrollReavel>
