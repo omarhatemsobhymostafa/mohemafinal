@@ -100,7 +100,7 @@ const HomePage = () => {
             </div>
 
             <h1 className="text-4xl font-bold leading-tight text-primary md:text-6xl">
-              مهمة، رفيقك في رحلة الأمومة
+              Femora رفيقك في رحلة الأمومة
             </h1>
 
             <p className="max-w-2xl text-lg leading-relaxed text-on-surface-variant md:text-xl">
@@ -169,7 +169,7 @@ const HomePage = () => {
           <section className="grid gap-8 rounded-[32px] border border-outline-variant bg-surface-container-low p-8 md:grid-cols-3 md:p-12">
             <div className="md:col-span-3">
               <h2 className="text-2xl font-bold text-primary md:text-3xl">
-                كيف تبدئين مع مهمة؟
+                كيف تبدئين مع Femora؟
               </h2>
               <p className="mt-3 max-w-2xl leading-relaxed text-on-surface-variant">
                 اختاري ما يناسبك الآن، وسنرافقك بالمعلومة التي تحتاجينها في الوقت المناسب.
