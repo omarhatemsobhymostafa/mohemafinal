@@ -65,14 +65,14 @@ const HomePage = () => {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            name: "مهمة | دليلك في رحلة الحمل والأمومة",
+            name: "Femora | دليلك في رحلة الحمل والأمومة",
             description:
-              "مهمة تساعدك في متابعة رحلة الحمل أسبوعًا بأسبوع، ومعرفة تطورات الجنين وأهم النصائح والمعلومات خلال رحلة الحمل والأمومة.",
+              "Femora تساعدك في متابعة رحلة الحمل أسبوعًا بأسبوع، ومعرفة تطورات الجنين وأهم النصائح والمعلومات خلال رحلة الحمل والأمومة.",
             url: "https://mohema.vercel.app/",
             inLanguage: "ar",
             isPartOf: {
               "@type": "WebSite",
-              name: "مهمة",
+              name: "Femora",
               url: "https://mohema.vercel.app/",
             },
           }),
@@ -91,7 +91,7 @@ const HomePage = () => {
                 width={600}
                 height={600}
                 loading="eager"
-                alt="مهمة - رحلة الحمل أسبوعًا بأسبوع"
+                alt="Femora - رحلة الحمل أسبوعًا بأسبوع"
                 className=" h-auto w-full scale-150 object-contain mix-blend-screen "
               />
             </div>
@@ -102,7 +102,7 @@ const HomePage = () => {
             </h1>
 
             <p className="max-w-2xl text-lg leading-relaxed text-on-surface-variant md:text-xl">
-              مهمة تساعدك تتابعي حملك،نمو وتطور طفلك، وتحافظي على صحتك في كل
+              Femora تساعدك تتابعي حملك،نمو وتطور طفلك، وتحافظي على صحتك في كل
               مرحلة. رفيقك الرقمي لرحلة أمومة آمنة وسعيدة.
             </p>
 
@@ -144,7 +144,7 @@ const HomePage = () => {
           <section className="flex flex-col gap-8 mb-12">
 
             <h2 className="text-center text-2xl font-bold text-primary md:text-3xl">
-              كيف تساعدك مهمة؟
+              كيف تساعدك Femora؟
             </h2>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 ">

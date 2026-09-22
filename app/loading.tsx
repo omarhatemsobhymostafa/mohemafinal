@@ -8,7 +8,7 @@ export default function Loading() {
       <div className="flex flex-col items-center gap-6 text-center">
         <div>
           <h1 className="text-5xl font-bold text-[#ffb2be]">
-            مهمة
+            Femora
           </h1>
 
         </div>

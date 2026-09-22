@@ -4,7 +4,7 @@ import { privateMetadata } from "../lib/seo";
 export const metadata: Metadata = {
   ...privateMetadata,
   title: "إنشاء حساب",
-  description: "أنشئي حسابًا في مهمة وابدئي متابعة رحلة الحمل أسبوعًا بأسبوع.",
+  description: "أنشئي حسابًا في Femora وابدئي متابعة رحلة الحمل أسبوعًا بأسبوع.",
   robots: {
     index: false,
     follow: false,

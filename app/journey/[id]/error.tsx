@@ -21,7 +21,7 @@ export default function NotFound() {
           </Link>
 
           <h1 className="absolute left-1/2 -translate-x-1/2 text-[26px] md:text-[32px] leading-tight font-semibold tracking-tight">
-            مهمة
+            Femora
           </h1>
 
           <div className="w-10" />
@@ -106,11 +106,11 @@ export default function NotFound() {
 
           <div className="flex flex-col items-center md:items-start gap-2">
             <span className="text-sm font-semibold text-[#e5e2e1] opacity-80">
-              مهمة
+              Femora
             </span>
 
             <p className="text-xs text-[#E2E2E6]">
-              © 2026 مهمة. جميع الحقوق محفوظة.
+              © 2026 Femora. جميع الحقوق محفوظة.
             </p>
           </div>
 

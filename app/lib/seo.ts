@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 
 export const BASE_URL = "https://mohema.vercel.app";
-export const SITE_NAME = "مهمة";
+export const SITE_NAME = "Femora";
 export const DEFAULT_DESCRIPTION =
-  "مهمة تساعدك في متابعة الحمل أسبوعًا بأسبوع، ومعرفة تطورات الجنين وأهم النصائح والمعلومات خلال رحلة الحمل والأمومة.";
+  "Femora تساعدك في متابعة الحمل أسبوعًا بأسبوع، ومعرفة تطورات الجنين وأهم النصائح والمعلومات خلال رحلة الحمل والأمومة.";
 
 export const SOCIAL_IMAGE = {
   url: "/og-image.png",
   width: 1200,
   height: 630,
-  alt: "مهمة - دليلك في رحلة الحمل والأمومة",
+  alt: "Femora - دليلك في رحلة الحمل والأمومة",
 };
 
 const defaultKeywords = [
-  "مهمة",
+  "Femora",
   "الحمل",
   "متابعة الحمل",
   "الحمل أسبوعًا بأسبوع",

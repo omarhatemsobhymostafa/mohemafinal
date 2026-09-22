@@ -35,14 +35,14 @@ export async function generateMetadata({
       "الحمل",
       "تطور الجنين",
       "نصائح الحمل",
-      "مهمة",
+      "Femora",
     ],
     image: [
       {
         url: "/hero.png",
         width: 600,
         height: 600,
-        alt: `مهمة - الأسبوع ${weekNumber} من الحمل`,
+        alt: `Femora - الأسبوع ${weekNumber} من الحمل`,
       },
     ],
     type: "article",

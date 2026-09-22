@@ -38,7 +38,7 @@ const Header = () => {
           className="flex cursor-pointer items-center gap-4"
         >
           <span className="text-xl font-bold text-primary md:text-2xl">
-            مهمة
+            Femora
           </span>
         </Link>
 

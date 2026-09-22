@@ -28,24 +28,24 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
     default: `${SITE_NAME} | دليلك في رحلة الحمل والأمومة`,
-    template: "%s | مهمة",
+    template: "%s | Femora",
   },
   description: DEFAULT_DESCRIPTION,
   keywords: [
-    "مهمة", "الحمل", "الحمل أسبوعًا بأسبوع", "متابعة الحمل", "تطور الجنين",
+    "Femora", "الحمل", "الحمل أسبوعًا بأسبوع", "متابعة الحمل", "تطور الجنين",
     "مراحل الحمل", "أعراض الحمل", "نصائح الحمل", "الأمومة", "قرة عيني",
   ],
-  authors: [{ name: "مهمة" }],
-  creator: "مهمة",
-  publisher: "مهمة",
-  applicationName: "مهمة",
+  authors: [{ name: "Femora" }],
+  creator: "Femora",
+  publisher: "Femora",
+  applicationName: "Femora",
   category: "health",
   alternates: { canonical: BASE_URL },
   openGraph: {
     type: "website",
     locale: "ar_AR",
     url: BASE_URL,
-    siteName: "مهمة",
+    siteName: "Femora",
     title: `${SITE_NAME} | دليلك في رحلة الحمل والأمومة`,
     description: DEFAULT_DESCRIPTION,
     images: [SOCIAL_IMAGE],
@@ -91,8 +91,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify([
-              { "@context": "https://schema.org", "@type": "Organization", name: "مهمة", url: BASE_URL },
-              { "@context": "https://schema.org", "@type": "WebSite", name: "مهمة", url: BASE_URL, inLanguage: "ar" },
+              { "@context": "https://schema.org", "@type": "Organization", name: "Femora", url: BASE_URL },
+              { "@context": "https://schema.org", "@type": "WebSite", name: "Femora", url: BASE_URL, inLanguage: "ar" },
             ]),
           }}
         />

@@ -12,7 +12,7 @@ export const metadata = createPageMetadata({
     "دفتر الحمل",
     "ذكريات الحمل",
     "جورنال الأمومة",
-    "مهمة",
+    "Femora",
   ],
   path: "/product",
   image: [
