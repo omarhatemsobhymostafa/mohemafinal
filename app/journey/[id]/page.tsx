@@ -3,7 +3,7 @@ import WeekSelector from "./../../components/WeekSelector";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Ai from './../../components/Ai'
- import ScrollReavel from "../../components/ScrollReavel";
+import ScrollReavel from "../../components/ScrollReavel";
 import { createPageMetadata } from "../../lib/seo";
 type Props = {
   params: Promise<{
@@ -102,175 +102,180 @@ export default async function JourneyPage({
         </div>
 
         {/* اختيار الأسبوع */}
-                  <ScrollReavel>
+        <ScrollReavel>
 
-        <WeekSelector />
-          </ScrollReavel>
+          <WeekSelector />
+        </ScrollReavel>
 
         {/* الأسبوع الحالي */}
-                  <ScrollReavel>
+        <ScrollReavel>
 
-        <section className="mt-8 overflow-hidden rounded-2xl border border-outline-variant bg-surface-container">
-          <div className="p-6 md:p-8">
+          <section className="mt-8 overflow-hidden rounded-2xl border border-outline-variant bg-surface-container">
+            <div className="p-6 md:p-8">
 
-            {/* عنوان الأسبوع */}
-            <div className="mb-6 flex items-center justify-between">
-              <div>
-                <p className="text-sm text-primary">
-                  أنتِ الآن في
+              {/* عنوان الأسبوع */}
+              <div className="mb-6 flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-primary">
+                    أنتِ الآن في
+                  </p>
+
+                  <h2 className="mt-1 text-3xl font-bold text-on-surface">
+                    الأسبوع {weekNo}
+                  </h2>
+                </div>
+
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-container">
+                  <span className="material-symbols-outlined text-3xl text-on-primary-container">
+                    child_care
+                  </span>
+                </div>
+              </div>
+
+
+
+              {/* حجم الجنين */}
+              <div className="mt-6">
+                <h3 className="text-xl font-semibold text-on-surface">
+                  {weeksData.data.babySize.slice(0, 30)}...
+                </h3>
+
+                <p className="mt-2 leading-7 text-on-surface-variant">
+                  {weeksData.data.babySize}
                 </p>
+              </div>
 
-                <h2 className="mt-1 text-3xl font-bold text-on-surface">
-                  الأسبوع {weekNo}
+            </div>
+          </section>
+        </ScrollReavel>
+
+        {/* تطور الطفل */}
+        <ScrollReavel>
+
+          <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
+            <div>
+
+              <div className="flex items-center gap-3">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary-container">
+                  <span className="material-symbols-outlined text-secondary">
+                    child_friendly
+                  </span>
+                </div>
+
+                <h2 className="text-xl font-bold text-on-surface">
+                  تطور طفلك
                 </h2>
               </div>
 
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-container">
-                <span className="material-symbols-outlined text-3xl text-on-primary-container">
-                  child_care
-                </span>
-              </div>
-            </div>
-
-          
-
-            {/* حجم الجنين */}
-            <div className="mt-6">
-              <h3 className="text-xl font-semibold text-on-surface">
-                {weeksData.data.babySize.slice(0, 30)}...
-              </h3>
-
-              <p className="mt-2 leading-7 text-on-surface-variant">
-                {weeksData.data.babySize}
-              </p>
-            </div>
-
-          </div>
-        </section>
-          </ScrollReavel>
-
-        {/* تطور الطفل */}
-                  <ScrollReavel>
-
-        <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
-          <div>
-
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary-container">
-                <span className="material-symbols-outlined text-secondary">
-                  child_friendly
-                </span>
+              <div className="mt-3 text-on-surface-variant">
+                {weeksData.data.babyLooks.split("\n").map((line: string, index: number) => (
+                  <span key={index}>
+                    {line}
+                    <div></div>
+                  </span>
+                ))}
               </div>
 
-              <h2 className="text-xl font-bold text-on-surface">
-                تطور طفلك
-              </h2>
             </div>
-
-            <div className="mt-3 text-on-surface-variant">
-              {weeksData.data.babyLooks.split("\n").map((line:string, index:number) => (
-    <span key={index}>
-      {line}
-      <div></div>
-    </span>
-  ))}
-            </div>
-
-          </div>
-        </section>
-          </ScrollReavel>
+          </section>
+        </ScrollReavel>
 
         {/* جسمك هذا الأسبوع */}
-                  <ScrollReavel>
+        <ScrollReavel>
 
-        <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
-          <div>
+          <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
+            <div>
 
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary-container">
-                <span className="material-symbols-outlined text-secondary">
-                  woman
-                </span>
+              <div className="flex items-center gap-3">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary-container">
+                  <span className="material-symbols-outlined text-secondary">
+                    woman
+                  </span>
+                </div>
+
+                <h2 className="text-xl font-bold text-on-surface">
+                  جسمك هذا الأسبوع
+                </h2>
               </div>
 
-              <h2 className="text-xl font-bold text-on-surface">
-                جسمك هذا الأسبوع
-              </h2>
-            </div>
+              <div className="mt-3 text-on-surface-variant">
+                {weeksData.data.WhappenInBody.split("\n").map((line: string, index: number) => (
+                  <span key={index}>
+                    {line}
+                    <div></div>
+                  </span>
+                ))}
+              </div>
 
-            <div className="mt-3 text-on-surface-variant">
-             {weeksData.data.WhappenInBody.split("\n").map((line:string, index:number) => (
-    <span key={index}>
-      {line}
-      <div></div>
-    </span>
-  ))}
             </div>
-
-          </div>
-        </section>
-          </ScrollReavel>
+          </section>
+        </ScrollReavel>
 
         {/* الأعراض */}
-                  <ScrollReavel>
+        <ScrollReavel>
 
-        <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
-          <div>
+          <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
+            <div>
 
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary-container">
-                <span className="material-symbols-outlined text-secondary">
-                  sick
-                </span>
+              <div className="flex items-center gap-3">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary-container">
+                  <span className="material-symbols-outlined text-secondary">
+                    sick
+                  </span>
+                </div>
+
+                <h2 className="text-xl font-bold text-on-surface">
+                  الأعراض
+                </h2>
               </div>
 
-              <h2 className="text-xl font-bold text-on-surface">
-                الأعراض
-              </h2>
+              <div className="mt-3 text-on-surface-variant">
+                {weeksData.data.sympotyms.split("\n").map((line: string, index: number) => (
+                  <span key={index}>
+                    {line}
+                    <div></div>
+                  </span>
+                ))}
+              </div>
             </div>
+          </section>
+        </ScrollReavel>
 
-       <div className="mt-3 text-on-surface-variant">
-  {weeksData.data.sympotyms.split("\n").map((line:string, index:number) => (
-    <span key={index}>
-      {line}
-      <div></div>
-    </span>
-  ))}
-</div>
-          </div>
-        </section>
-          </ScrollReavel>
+        <ScrollReavel>
+          <section>
+            {weeksData.data.option1 ? (<section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
+              <div>
 
-          <ScrollReavel>
- <section>
-        {weeksData.data.option1 ? (        <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
-          <div>
+                <div className="mt-3 text-on-surface-variant">
+                  {weeksData.data.option1.split("\n").map((line: string, index: number) => (
+                    <span key={index}>
+                      {line}
+                      <div></div>
+                    </span>
+                  ))}
+                </div>
 
-            <div className="mt-3 text-on-surface-variant">
-              {weeksData.data.option1.split("\n").map((line:string, index:number) => (
-    <span key={index}>
-      {line}
-      <div></div>
-    </span>
-  ))}
-            </div>
+              </div>
+            </section>) : null
+            }        {weeksData.data.option2 ? (<section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
+              <div>
 
-          </div>
-        </section>):null
-        }        {weeksData.data.option2 ? (        <section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
-          <div>
+                <p className="mt-3 text-on-surface-variant">
+                                   {weeksData.data.option2.split("\n").map((line: string, index: number) => (
+                    <span key={index}>
+                      {line}
+                      <div></div>
+                    </span>
+                  ))}
+                </p>
 
-            <p className="mt-3 text-on-surface-variant">
-              {weeksData.data.option2}
-            </p>
+              </div>
+            </section>) : null
+            }
+          </section>
+        </ScrollReavel>
 
-          </div>
-        </section>):null
-        }
-         </section>
-          </ScrollReavel>
-
-      <Ai week={weekNo} />
+        <Ai week={weekNo} />
 
         {/* التنقل بين الأسابيع */}
         <section className="mt-8 rounded-2xl border border-outline-variant bg-surface-container-lowest p-5">
