@@ -3,6 +3,8 @@ import type { MetadataRoute } from "next";
 
 const BASE_URL = "https://mohema.vercel.app";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
   const weeks = Array.from({ length: 40 }, (_, index) => {
