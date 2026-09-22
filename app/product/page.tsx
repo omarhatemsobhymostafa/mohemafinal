@@ -100,7 +100,7 @@ export default function QoratEinyPage() {
           <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-5 py-12 md:grid-cols-2 md:px-10 md:py-20">
             <div className="overflow-hidden rounded-2xl border border-outline-variant bg-surface-container">
               <Image
-                src="/product.jpeg"
+                src="/product.jpg"
                 alt="قرة عيني - جورنال الحمل والأمومة"
                 width={800}
                 height={800}
