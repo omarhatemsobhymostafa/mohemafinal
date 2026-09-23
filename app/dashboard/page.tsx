@@ -113,7 +113,7 @@ export default function HomePage() {
     >
       <div
         id="app-wrapper"
-        className="w-full max-w-[390px] mx-auto min-h-screen relative flex flex-col bg-[#121214] shadow-2xl overflow-x-hidden pb-24"
+        className="w-full max-w-97.5 mx-auto min-h-screen relative flex flex-col bg-[#121214] shadow-2xl overflow-x-hidden pb-24"
       >
         {/* =========================
             Header
@@ -121,7 +121,7 @@ export default function HomePage() {
         <header className="sticky top-0 right-0 left-0 h-16 bg-[#121214]/90 backdrop-blur-xl z-40 flex items-center justify-between px-4 border-b border-[#302a2d] shadow-md">
           <div className="flex items-center gap-3">
             {/* Profile Avatar */}
-            <div className="relative w-10 h-10 rounded-full bg-gradient-to-tr from-[#3a2027] to-[#542a35] text-[#ffb2be] flex items-center justify-center font-bold text-sm shadow-md ring-1 ring-[#ffb2be]/30">
+            <div className="relative w-10 h-10 rounded-full bg-[#40242e] text-[#ffb2be] flex items-center justify-center font-bold text-sm shadow-md ring-1 ring-[#ffb2be]/30">
               <span className="material-symbols-outlined text-[20px]">
                 person
               </span>
@@ -151,7 +151,7 @@ export default function HomePage() {
           {/* =========================
               Welcome Card
           ========================== */}
-          <section className="relative z-10 w-full rounded-2xl bg-gradient-to-b from-[#211f26] to-[#1a191d] p-4 border border-[#302a2d] flex flex-col gap-3 shadow-[0_0_25px_rgba(255,178,190,0.08)]">
+          <section className="relative z-10 w-full rounded-2xl bg-[#211f26] p-4 border border-[#302a2d] flex flex-col gap-3 shadow-[0_0_25px_rgba(255,178,190,0.08)]">
             <div className="space-y-1.5">
 
               {/* Badge */}
@@ -178,14 +178,14 @@ export default function HomePage() {
           {/* =========================
               Pregnancy Calculator
           ========================== */}
-          <section className="w-full rounded-2xl bg-gradient-to-b from-[#232128] to-[#1c1b21] p-4 border border-[#633642]/40 flex flex-col gap-3 relative overflow-hidden">
+          <section className="w-full rounded-2xl bg-[#232128] p-4 border border-[#633642]/40 flex flex-col gap-3 relative overflow-hidden">
 
             {/* Header */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
 
                 {/* Icon */}
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#40242e] to-[#29171e] text-[#ffb2be] flex items-center justify-center border border-[#ffb2be]/30">
+                <div className="w-8 h-8 rounded-lg bg-[#40242e] text-[#ffb2be] flex items-center justify-center border border-[#ffb2be]/30">
                   <span className="material-symbols-outlined text-[18px]">
                     calendar_month
                   </span>
@@ -282,18 +282,16 @@ export default function HomePage() {
           {/* =========================
               Pregnancy Tracking
           ========================== */}
-          <section className="w-full rounded-2xl bg-gradient-to-b from-[#232128] to-[#1c1b21] p-4 border border-[#302a2d] flex flex-col gap-4 relative overflow-hidden">
+          <section className="w-full rounded-2xl bg-[#232128] p-4 border border-[#302a2d] flex flex-col gap-4 relative overflow-hidden">
 
             {/* Decorative Glow */}
-            <div className="absolute -top-12 -left-12 w-32 h-32 bg-[#ffb2be]/10 rounded-full blur-2xl pointer-events-none" />
-
             {/* Card Header */}
             <div className="flex items-center justify-between relative z-10">
 
               <div className="flex items-center gap-2.5">
 
                 {/* Icon */}
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#40242e] to-[#29171e] text-[#ffb2be] flex items-center justify-center shadow-md border border-[#ffb2be]/30">
+                <div className="w-10 h-10 rounded-xl bg-[#40242e] text-[#ffb2be] flex items-center justify-center shadow-md border border-[#ffb2be]/30">
                   <span className="material-symbols-outlined text-[22px]">
                     pregnant_woman
                   </span>
@@ -366,9 +364,9 @@ export default function HomePage() {
               </div>
 
               {/* Progress Bar */}
-              <div className="relative w-full h-2.5 bg-[#17161b] rounded-full overflow-hidden border border-[#302a2d] p-[1px]">
+              <div className="relative w-full h-2.5 bg-[#17161b] rounded-full overflow-hidden border border-[#302a2d] p-px">
                 <div
-                  className="h-full bg-gradient-to-r from-[#d97d91] to-[#ffb2be] rounded-full shadow-[0_0_10px_rgba(255,178,190,0.5)]"
+                  className="h-full bg-[#ffb2be] rounded-full shadow-[0_0_10px_rgba(255,178,190,0.5)]"
                   style={{ width: `${pregnancyStats?.progress ?? 0}%` }}
                 />
               </div>
@@ -411,7 +409,7 @@ export default function HomePage() {
             ========================== */}
             <Link
               href={`/journey/week_${pregnancyStats?.week}`}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-[#6e2b3e] via-[#8c354e] to-[#6e2b3e] hover:brightness-110 text-[#fff5f6] font-bold text-[13px] shadow-[0_4px_18px_rgba(140,53,78,0.4)] active:scale-[0.98] transition-all border border-[#ffb2be]/30"
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#8c354e] hover:brightness-110 text-[#fff5f6] font-bold text-[13px] shadow-[0_4px_18px_rgba(140,53,78,0.4)] active:scale-[0.98] transition-all border border-[#ffb2be]/30"
             >
               <span>
                 متابعة تفاصيل الحمل

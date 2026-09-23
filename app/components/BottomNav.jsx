@@ -148,12 +148,6 @@ const BottomNav = () => {
         <Show when="signed-out">
           <div className="flex items-center gap-1">
             <Link
-              href="/signin"
-              className="rounded-xl px-2 py-2 text-[11px] font-bold text-primary transition-colors hover:bg-primary-container/40"
-            >
-              تسجيل الدخول
-            </Link>
-            <Link
               href="/signup"
               className="rounded-xl bg-primary px-2.5 py-2 text-[11px] font-bold text-on-primary shadow-sm transition-transform hover:scale-105 active:scale-95"
             >

@@ -1,14 +1,14 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { startTransition, useEffect, useState } from "react";
-import ScrollReavel from './components/ScrollReavel'
-const HomePage = () => {
+import { useEffect } from "react";
+
+export default function HomePage() {
   const router = useRouter();
   const { isLoaded, user } = useUser();
-  const [selectedWeek, setSelectedWeek] = useState<string | null>(null);
 
   useEffect(() => {
     if (isLoaded && user) {
@@ -16,183 +16,106 @@ const HomePage = () => {
     }
   }, [isLoaded, router, user]);
 
-  useEffect(() => {
-    if (isLoaded && user) return;
-
-    const storedWeek = localStorage.getItem("selectedWeek");
-    startTransition(() => setSelectedWeek(storedWeek));
-  }, [isLoaded, user]);
-
-  const benefits = [
-    {
-      icon: "calendar_month",
-      title: "متابعة الحمل",
-      description: "تابعي أسبوعك الحالي واحصلي على نصائح مناسبة لكل مرحلة.",
-      href: "/dashboard",
-      color: "bg-secondary-fixed/30",
-      text: "text-secondary",
-    },
-    {
-      icon: "child_care",
-      title: "معرفة نمو وتطور طفلك ",
-      description: "اكتشفي كيف ينمو طفلك أسبوعًا بعد أسبوع بطريقة بسيطة.",
-      href: selectedWeek ? `/journey/${selectedWeek}` : "/journey/week_4",
-      color: "bg-primary-fixed/30",
-      text: "text-primary",
-    },
-    {
-      icon: "family_restroom",
-      title: "رحلة أسبوعية واضحة",
-      description: "تنقلي بين أسابيع الحمل واقرئي أهم المعلومات في مكان واحد.",
-      href: "/journey",
-      color: "bg-tertiary-fixed/30",
-      text: "text-tertiary",
-    },
-    {
-      icon: "favorite",
-      title: "قرة عيني",
-      description: "اكتبي لحظاتك واحتفظي بذكريات رحلة حملك في دفتر مميز.",
-      href: "/product",
-      color: "bg-error-container/30",
-      text: "text-on-error-container",
-    },
-  ];
-
-  
+  const getStartedHref = user
+    ? "/dashboard"
+    : "/signup";
 
   return (
-    <div className="flex flex-col">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: "Femora | دليلك في رحلة الحمل والأمومة",
-            description:
-              "Femora تساعدك في متابعة رحلة الحمل أسبوعًا بأسبوع، ومعرفة تطورات الجنين وأهم النصائح والمعلومات خلال رحلة الحمل والأمومة.",
-            url: "https://mohema.vercel.app/",
-            inLanguage: "ar",
-            isPartOf: {
-              "@type": "WebSite",
-              name: "Femora",
-              url: "https://mohema.vercel.app/",
-            },
-          }),
-        }}
-      />
-      <main className="mx-auto flex max-w-7xl flex-col gap-20 px-container-padding py-10 md:py-20">
+    <main
+      dir="rtl"
+      className="relative flex min-h-screen w-full flex-col overflow-hidden bg-[#151219] text-[#e8e0ea] antialiased"
+    >
+      <div className="pointer-events-none fixed inset-0 z-0 h-full w-full overflow-hidden">
+        <Image
+          src="/artistic_cozy_intimate_motherhood_visual_a_silhouette_of_a_serene_pregnant.png"
+          alt="Femora - مساحة دافئة لمرافقة الأمومة"
+          fill
+          priority
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-[#151219]/90 via-[#151219]/35 to-[#151219]/95" />
+        <div className="absolute inset-0 bg-linear-to-t from-[#151219] via-[#151219]/75 to-transparent" />
+      </div>
 
-        {/* Hero Section */}
-        <ScrollReavel>
-
-          <section className="flex flex-col items-center gap-8 text-center">
-
-            <div className="soft-floating mb-4 w-full max-w-[320px] overflow-hidden rounded-[20px] bg-surface-container-low p-6 md:max-w-[400px] ">
+      <div className="relative z-10 flex min-h-screen flex-col justify-between px-5 py-6 sm:px-8">
+        <header className="flex items-center justify-center pt-2 text-center">
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-[#f3bce1]/20 bg-[#221e26]/70 px-4 py-2 shadow-lg backdrop-blur-md">
+            <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-[#f3bce1]/20 bg-[#37333b]/60 p-0.5">
               <Image
-                src="/hero.png"
-                width={600}
-                height={600}
-                loading="eager"
-                alt="Femora - رحلة الحمل أسبوعًا بأسبوع"
-                className=" h-auto w-full scale-150 object-contain mix-blend-screen "
+                src="/logo2.png"
+                alt="شعار Femora"
+                width={36}
+                height={36}
+                className="h-full w-full rounded-full object-contain"
               />
             </div>
 
-            <h1 className="text-4xl font-bold leading-tight text-primary md:text-6xl">
-              Femora رفيقك في رحلة الأمومة
+            <div className="flex flex-col text-right">
+              <span className="text-[19px] font-semibold leading-tight tracking-wide text-[#f3bce1]">
+                Femora
+              </span>
+              <span className="text-[11px] leading-none text-[#ebc5ac]">
+                ملاذكِ الهادئ لمرافقة الأمومة
+              </span>
+            </div>
+          </div>
+        </header>
+
+        <section className="flex grow flex-col justify-end pb-8 text-right">
+          <div className="mx-auto flex w-full max-w-md flex-col gap-3.5">
+            <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[#f3bce1]/25 bg-[#221e26]/80 px-3.5 py-1.5 shadow-sm backdrop-blur-md">
+              <span className="text-sm text-[#f3bce1]">✿</span>
+              <span className="text-[10px] font-medium text-[#e8e0ea]">
+                رعاية دافئة لكل نبضة
+              </span>
+            </div>
+
+            <h1 className="text-[30px] font-semibold leading-[1.35] text-[#e8e0ea] drop-shadow-md sm:text-[40px]">
+              رحلتكِ نحو{" "}
+              <span className="text-[#f3bce1] underline decoration-[#f3bce1]/40 underline-offset-8">
+                الأمومة
+              </span>
+              ،
+              <br />
+              <span className="text-[24px] font-normal text-[#d2c2ca] sm:text-[28px]">
+                بكل لحظة وسكون فيها.
+              </span>
             </h1>
 
-            <p className="max-w-2xl text-lg leading-relaxed text-on-surface-variant md:text-xl">
-              كل ما تحتاجينه لتفهمي حملك، تتابعي نمو طفلك، وتعيشي كل مرحلة
-              بثقة واطمئنان.
+            <p className="pt-0.5 text-sm leading-relaxed text-[#d2c2ca]/90 drop-shadow-sm sm:text-base">
+              Femora يساعدكِ على متابعة رحلة حملكِ أسبوعًا بأسبوع، بطريقة بسيطة،
+              هادئة وجميلة كقلبكِ تمامًا.
             </p>
 
-            <div className="mt-4 flex w-full flex-col gap-4 md:flex-row md:justify-center">
+            <div className="mt-4 flex flex-col gap-3">
               <Link
-                href={selectedWeek ? `/journey/${selectedWeek}` : "/journey/week_4"}
-                className="rounded-full bg-primary-container px-10 py-4 text-lg font-bold text-on-primary-container transition-transform hover:-translate-y-1"
+                href={getStartedHref}
+                className="flex w-full items-center justify-center gap-2.5 rounded-full border border-[#ffd7f0]/40 bg-[#d6a1c5] px-6 py-4 font-semibold text-[#151219] shadow-xl shadow-[#d6a1c5]/25 transition-all duration-200 hover:bg-[#f3bce1] active:scale-[0.98]"
               >
-                ابدئي رحلتك الآن
+                <span className="tracking-wide">ابدئي مع Femora</span>
+                <span className="text-xl transition-transform">←</span>
               </Link>
 
               <Link
-                href="/dashboard"
-                className="rounded-full border border-outline-variant bg-surface-container-lowest px-10 py-4 text-lg font-medium text-on-surface transition-colors hover:border-primary"
+                href="/signin"
+                className="w-full py-2.5 text-center text-xs text-[#d2c2ca] transition-colors hover:text-[#f3bce1] active:opacity-80"
               >
-                افتحي لوحة المتابعة
+                لديكِ حساب بالفعل؟{" "}
+                <span className="font-medium text-[#ebc5ac] underline underline-offset-4">
+                  تسجيل الدخول
+                </span>
               </Link>
             </div>
-          </section>
-        </ScrollReavel>
 
-        {/* Benefits Grid */}
-        <ScrollReavel>
-
-          <section className="flex flex-col gap-8 mb-12">
-
-            <h2 className="text-center text-2xl font-bold text-primary md:text-3xl">
-              كل أدوات رحلتك في مكان واحد
-            </h2>
-
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 ">
-
-{benefits.map((item, index) => (
-  <Link
-    key={index}
-    href={item.href}
-    className="relative soft-floating flex flex-col items-center gap-4 rounded-[32px] border border-outline-variant bg-surface-container-low p-8 text-center"
-  >
-    <div
-      className={`${item.color} ${item.text} flex h-16 w-16 items-center justify-center rounded-full p-5 shadow-md`}
-    >
-      <span className="material-symbols-outlined text-4xl">
-        {item.icon}
-      </span>
-    </div>
-
-    <span className="text-xl font-semibold text-on-surface">
-      {item.title}
-    </span>
-    <p className="text-sm leading-relaxed text-on-surface-variant">
-      {item.description}
-    </p>
-    <span className="text-sm font-semibold text-primary">اكتشفي المزيد ←</span>
-  </Link>
-))}
-
+            <div className="flex items-center justify-center gap-2 pt-1 text-center">
+              <span className="text-sm text-[#f3bce1]/80">✓</span>
+              <span className="text-[11px] tracking-wide text-[#d2c2ca]/80">
+                خصوصية تامة وآمنة • تجربة هادئة بدون إعلانات
+              </span>
             </div>
-          </section>
-        </ScrollReavel>
-
-        <ScrollReavel>
-          <section className="grid gap-8 rounded-[32px] border border-outline-variant bg-surface-container-low p-8 md:grid-cols-3 md:p-12">
-            <div className="md:col-span-3">
-              <h2 className="text-2xl font-bold text-primary md:text-3xl">
-                كيف تبدئين مع Femora؟
-              </h2>
-              <p className="mt-3 max-w-2xl leading-relaxed text-on-surface-variant">
-                اختاري ما يناسبك الآن، وسنرافقك بالمعلومة التي تحتاجينها في الوقت المناسب.
-              </p>
-            </div>
-            {[
-              ["01", "اختاري أسبوعك", "ابدئي من أسبوعك الحالي أو تصفحي الرحلة كاملة."],
-              ["02", "افهمي التغييرات", "تعرّفي على تطورات طفلك والنصائح المهمة لكل أسبوع."],
-              ["03", "احتفظي بذكرياتك", "اكتبي تجربتك واحتفظي بها مع قرة عيني."],
-            ].map(([number, title, description]) => (
-              <div key={number} className="border-t border-outline-variant pt-5">
-                <span className="text-sm font-bold text-secondary">{number}</span>
-                <h3 className="mt-3 text-lg font-bold text-on-surface">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-on-surface-variant">{description}</p>
-              </div>
-            ))}
-          </section>
-        </ScrollReavel>
-
-
-      </main>
-    </div>
+          </div>
+        </section>
+      </div>
+    </main>
   );
-};
-
-export default HomePage;
+}

@@ -169,10 +169,9 @@ export default async function JourneyPage({
 
               <div className="mt-3 text-on-surface-variant">
                 {weeksData.data.babyLooks.split("\n").map((line: string, index: number) => (
-                  <span key={index}>
+                  <p key={index}>
                     {line}
-                    <div></div>
-                  </span>
+                  </p>
                 ))}
               </div>
 
@@ -200,10 +199,9 @@ export default async function JourneyPage({
 
               <div className="mt-3 text-on-surface-variant">
                 {weeksData.data.WhappenInBody.split("\n").map((line: string, index: number) => (
-                  <span key={index}>
+                  <p key={index}>
                     {line}
-                    <div></div>
-                  </span>
+                  </p>
                 ))}
               </div>
 
@@ -231,10 +229,9 @@ export default async function JourneyPage({
 
               <div className="mt-3 text-on-surface-variant">
                 {weeksData.data.sympotyms.split("\n").map((line: string, index: number) => (
-                  <span key={index}>
+                  <p key={index}>
                     {line}
-                    <div></div>
-                  </span>
+                  </p>
                 ))}
               </div>
             </div>
@@ -248,10 +245,9 @@ export default async function JourneyPage({
 
                 <div className="mt-3 text-on-surface-variant">
                   {weeksData.data.option1.split("\n").map((line: string, index: number) => (
-                    <span key={index}>
+                    <p key={index}>
                       {line}
-                      <div></div>
-                    </span>
+                    </p>
                   ))}
                 </div>
 
@@ -260,14 +256,13 @@ export default async function JourneyPage({
             }        {weeksData.data.option2 ? (<section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
               <div>
 
-                <p className="mt-3 text-on-surface-variant">
+                <div className="mt-3 text-on-surface-variant">
                                    {weeksData.data.option2.split("\n").map((line: string, index: number) => (
-                    <span key={index}>
+                    <p key={index}>
                       {line}
-                      <div></div>
-                    </span>
+                    </p>
                   ))}
-                </p>
+                </div>
 
               </div>
             </section>) : null
