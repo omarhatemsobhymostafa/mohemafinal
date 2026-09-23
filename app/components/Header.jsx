@@ -75,14 +75,31 @@ const Header = () => {
           })}
         </ul>
 
-        {/* CTA */}
-        <div className="hidden md:block">
-          <Link
-            href={user ? "/dashboard" : "/journey"}
-            className="inline-block rounded-full bg-primary-container px-6 py-2.5 text-sm font-semibold text-on-primary-container"
-          >
-            {user ? "لوحة الحمل" : "ابدئي رحلتك"}
-          </Link>
+        {/* CTA and authentication */}
+        <div className="hidden items-center gap-3 md:flex">
+          {user ? (
+            <Link
+              href="/dashboard"
+              className="inline-block rounded-full bg-primary-container px-6 py-2.5 text-sm font-semibold text-on-primary-container"
+            >
+              لوحة الحمل
+            </Link>
+          ) : (
+            <>
+              <Link
+                href="/signin"
+                className="rounded-full px-4 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary-container/40"
+              >
+                تسجيل الدخول
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-on-primary transition-transform hover:scale-105"
+              >
+                إنشاء حساب
+              </Link>
+            </>
+          )}
         </div>
 
       </nav>
