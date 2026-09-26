@@ -5,6 +5,7 @@ export default function SignUpPage() {
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
       <SignUp
         signInUrl="/signin"
+        forceRedirectUrl="/"
         appearance={{
           elements: {
             rootBox: "w-full max-w-md",
