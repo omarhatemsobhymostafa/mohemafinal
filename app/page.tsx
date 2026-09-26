@@ -55,7 +55,7 @@ export default function HomePage() {
                 Femora
               </span>
               <span className="text-[11px] leading-none text-[#ebc5ac]">
-                ملاذكِ الهادئ لمرافقة الأمومة
+                رفيقك في رحلة الأمومة
               </span>
             </div>
           </div>
@@ -66,25 +66,19 @@ export default function HomePage() {
             <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[#f3bce1]/25 bg-[#221e26]/80 px-3.5 py-1.5 shadow-sm backdrop-blur-md">
               <span className="text-sm text-[#f3bce1]">✿</span>
               <span className="text-[10px] font-medium text-[#e8e0ea]">
-                رعاية دافئة لكل نبضة
-              </span>
+                رحلتكِ لللأمومة، خطوة بخطوة              </span>
             </div>
 
             <h1 className="text-[30px] font-semibold leading-[1.35] text-[#e8e0ea] drop-shadow-md sm:text-[40px]">
-              رحلتكِ نحو{" "}
-              <span className="text-[#f3bce1] underline decoration-[#f3bce1]/40 underline-offset-8">
-                الأمومة
-              </span>
-              ،
+              رحلتكِ تبدأ من هنا{" "}
               <br />
               <span className="text-[24px] font-normal text-[#d2c2ca] sm:text-[28px]">
-                بكل لحظة وسكون فيها.
+               لحظة بلحظة، نرافقكِ في أجمل رحلة.
               </span>
             </h1>
 
             <p className="pt-0.5 text-sm leading-relaxed text-[#d2c2ca]/90 drop-shadow-sm sm:text-base">
-              Femora يساعدكِ على متابعة رحلة حملكِ أسبوعًا بأسبوع، بطريقة بسيطة،
-              هادئة وجميلة كقلبكِ تمامًا.
+              Femora يساعدكِ تتابعي حملكِ أسبوعًا بأسبوع، وتعرفي كل جديد عن رحلتكِ ببساطة وهدوء.
             </p>
 
             <div className="mt-4 flex flex-col gap-3">
@@ -92,8 +86,8 @@ export default function HomePage() {
                 href={getStartedHref}
                 className="flex w-full items-center justify-center gap-2.5 rounded-full border border-[#ffd7f0]/40 bg-[#d6a1c5] px-6 py-4 font-semibold text-[#151219] shadow-xl shadow-[#d6a1c5]/25 transition-all duration-200 hover:bg-[#f3bce1] active:scale-[0.98]"
               >
-                <span className="tracking-wide">ابدئي مع Femora</span>
-                <span className="text-xl transition-transform">←</span>
+                <span className="tracking-wide"> ابدئي رحلتكِ </span>
+                <span className="text-xl transition-transform font-extrabold">←</span>
               </Link>
 
               <Link
