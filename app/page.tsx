@@ -37,29 +37,19 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-linear-to-t from-[#151219] via-[#151219]/75 to-transparent" />
       </div>
 
-      <div className="relative z-10 flex min-h-screen flex-col justify-between px-5 py-6 sm:px-8">
-        <header className="flex items-center justify-center pt-2 text-center">
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-[#f3bce1]/20 bg-[#221e26]/70 px-4 py-2 shadow-lg backdrop-blur-md">
-            <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-[#f3bce1]/20 bg-[#37333b]/60 p-0.5">
-              <Image
-                src="/logo2.png"
-                alt="شعار Femora"
-                width={36}
-                height={36}
-                className="h-full w-full rounded-full object-contain"
-              />
-            </div>
-
-            <div className="flex flex-col text-right">
-              <span className="text-[19px] font-semibold leading-tight tracking-wide text-[#f3bce1]">
-                Femora
-              </span>
-              <span className="text-[11px] leading-none text-[#ebc5ac]">
-                رفيقك في رحلة الأمومة
-              </span>
-            </div>
-          </div>
-        </header>
+<div className="relative z-10 flex min-h-screen flex-col justify-between px-5 py-6 sm:px-8">
+  <header className="flex items-center justify-center pt-2 text-center">
+    <div className="flex h-18 w-auto items-center justify-center overflow-hidden rounded-full border border-[#f3bce1]/20 bg-[#52202B]/40 px-5">
+      <Image
+        src="/logo.png"
+        alt="شعار Femora"
+        width={140}
+        height={50}
+        className="h-full w-auto object-contain"
+        priority
+      />
+    </div>
+  </header>
 
         <section className="flex grow flex-col justify-end pb-8 text-right">
           <div className="mx-auto flex w-full max-w-md flex-col gap-3.5">
@@ -71,7 +61,7 @@ export default function HomePage() {
 
             <h1 className="text-[30px] font-semibold leading-[1.35] text-[#e8e0ea] drop-shadow-md sm:text-[40px]">
               <span className="text-[#f3bce1] underline decoration-[#f3bce1]/40 underline-offset-8">
-                  رحلتك {" "}
+                رحلتك {" "}
               </span>
               تبدأ من هنا
               <br />
