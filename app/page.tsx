@@ -70,10 +70,13 @@ export default function HomePage() {
             </div>
 
             <h1 className="text-[30px] font-semibold leading-[1.35] text-[#e8e0ea] drop-shadow-md sm:text-[40px]">
-              رحلتكِ تبدأ من هنا{" "}
+              <span className="text-[#f3bce1] underline decoration-[#f3bce1]/40 underline-offset-8">
+                  رحلتك {" "}
+              </span>
+              تبدأ من هنا
               <br />
               <span className="text-[24px] font-normal text-[#d2c2ca] sm:text-[28px]">
-               لحظة بلحظة، نرافقكِ في أجمل رحلة.
+                لحظة بلحظة، نرافقكِ في أجمل رحلة.
               </span>
             </h1>
 
