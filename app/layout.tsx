@@ -84,11 +84,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
 
       <body className="min-h-full flex flex-col">
-        <ClerkProvider
-          signInUrl="/sign-in"
-          signUpUrl="/signup"
-          proxyUrl="https://femora.devs.surf/__clerk"
-        >
+<ClerkProvider
+  signInUrl="/sign-in"
+  signUpUrl="/signup"
+  proxyUrl="https://femora.devs.surf/__clerk"
+>
           <UserSync />
           <script
             type="application/ld+json"
