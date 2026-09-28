@@ -84,7 +84,7 @@ export default function HomePage() {
               </Link>
 
               <Link
-                href="/signin"
+                href="/sign-in"
                 className="w-full py-2.5 text-center text-xs text-[#d2c2ca] transition-colors hover:text-[#f3bce1] active:opacity-80"
               >
                 لديكِ حساب بالفعل؟{" "}

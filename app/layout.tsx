@@ -71,8 +71,6 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-        <ClerkProvider>
-
     <html
       lang="ar"
       dir="rtl"
@@ -86,22 +84,26 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
 
       <body className="min-h-full flex flex-col">
-        <UserSync />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify([
-              { "@context": "https://schema.org", "@type": "Organization", name: "Femora", url: BASE_URL },
-              { "@context": "https://schema.org", "@type": "WebSite", name: "Femora", url: BASE_URL, inLanguage: "ar" },
-            ]),
-          }}
-        />
-        <div className="hidden md:block"> <Header /> </div>
-        {children}
-        <div className="md:hidden"> <BottomNav /> </div>
+        <ClerkProvider
+          signInUrl="/sign-in"
+          signUpUrl="/signup"
+          proxyUrl="https://femora.devs.surf/__clerk"
+        >
+          <UserSync />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify([
+                { "@context": "https://schema.org", "@type": "Organization", name: "Femora", url: BASE_URL },
+                { "@context": "https://schema.org", "@type": "WebSite", name: "Femora", url: BASE_URL, inLanguage: "ar" },
+              ]),
+            }}
+          />
+          <div className="hidden md:block"> <Header /> </div>
+          {children}
+          <div className="md:hidden"> <BottomNav /> </div>
+        </ClerkProvider>
       </body>
     </html>
-        </ClerkProvider>
-
   );
 }

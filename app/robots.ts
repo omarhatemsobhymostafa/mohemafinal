@@ -14,7 +14,7 @@ export default function robots(): MetadataRoute.Robots {
           "/api",
           "/dashboard",
           "/panel",
-          "/signin",
+          "/sign-in",
           "/signup",
         ],
       },

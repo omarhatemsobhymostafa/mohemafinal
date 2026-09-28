@@ -87,7 +87,7 @@ const Header = () => {
           ) : (
             <>
               <Link
-                href="/signin"
+                href="/sign-in"
                 className="rounded-full px-4 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary-container/40"
               >
                 تسجيل الدخول
