@@ -57,7 +57,7 @@ export default async function JourneyPage({
 
 
   const weeksData = await axios.get(
-    `https://mohema.onrender.com/weeksdata/${id}`
+    `https://femora-backend-v3hw.onrender.com/api/v1/weeks/${id}`
   );
 
   const weekNo = Number(
