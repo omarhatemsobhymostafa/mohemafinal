@@ -1,10 +1,10 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
-import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { useAuth } from "../components/auth/AuthProvider";
+import { apiRequest } from "../lib/api";
 
 type Week = {
   _id?: string;
@@ -18,14 +18,6 @@ type Week = {
 };
 
 type FieldName = Exclude<keyof Week, "_id" | "weekNumber">;
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://mohema.onrender.com";
-const ADMIN_CLERK_IDS = new Set(
-  (process.env.NEXT_PUBLIC_ADMIN_CLERK_IDS ?? "")
-  .split(",")
-  .map((clerkId) => clerkId.trim())
-  .filter(Boolean)
-);
 
 const fields: Array<{
   name: FieldName;
@@ -90,7 +82,7 @@ const emptyWeek = (weekNumber = "week_1"): Week => ({
 
 export default function PanelPage() {
   const router = useRouter();
-  const { user, isLoaded } = useUser();
+  const { user, status, error: authError } = useAuth();
   const [weeks, setWeeks] = useState<Week[]>([]);
   const [selectedWeek, setSelectedWeek] = useState("week_1");
   const [week, setWeek] = useState<Week>(emptyWeek());
@@ -99,29 +91,41 @@ export default function PanelPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  const isAdmin = !!user && ADMIN_CLERK_IDS.has(user.id);
+  const isAdmin = user?.role === "admin";
 
   useEffect(() => {
-    if (isLoaded && !isAdmin) {
+    if (status === "unauthenticated") {
+      router.replace("/sign-in");
+      return;
+    }
+
+    if (status === "authenticated" && !isAdmin) {
       router.replace("/dashboard");
       return;
     }
 
-    if (!isLoaded || !isAdmin) return;
+    if (status !== "authenticated" || !isAdmin) return;
 
-    axios
-      .get<Week[]>(`${API_URL}/weeksdata`)
-      .then((response) => {
-        setWeeks(response.data);
-        if (response.data.length > 0) {
-          const firstWeek = response.data[0];
+    apiRequest<Week[]>("/api/v1/weeks")
+      .then((weekData) => {
+        setWeeks(weekData);
+        if (weekData.length > 0) {
+          const firstWeek = weekData[0];
           setSelectedWeek(firstWeek.weekNumber);
           setWeek(firstWeek);
         }
       })
-      .catch(() => setMessage({ type: "error", text: "تعذر تحميل بيانات الأسابيع" }))
+      .catch((error: unknown) =>
+        setMessage({
+          type: "error",
+          text:
+            error instanceof Error
+              ? error.message
+              : "تعذر تحميل بيانات الأسابيع",
+        }),
+      )
       .finally(() => setIsLoading(false));
-  }, [isAdmin, isLoaded, router]);
+  }, [isAdmin, router, status]);
 
   const filteredWeeks = useMemo(() => {
     const query = search.trim();
@@ -130,8 +134,14 @@ export default function PanelPage() {
     return weeks.filter((item) => item.weekNumber.replace("week_", "").includes(query));
   }, [search, weeks]);
 
-  if (!isLoaded) {
-    return <main dir="rtl" className="min-h-screen bg-[#121214] text-[#f5eef0] flex items-center justify-center">جارٍ التحقق من权限...</main>;
+  if (status === "loading" || status === "error") {
+    return (
+      <main dir="rtl" className="min-h-screen bg-[#121214] text-[#f5eef0] flex items-center justify-center">
+        {status === "loading"
+          ? "جارٍ التحقق من تسجيل الدخول..."
+          : authError ?? "تعذر التحقق من الحساب."}
+      </main>
+    );
   }
 
   if (!isAdmin) {
@@ -156,15 +166,26 @@ export default function PanelPage() {
     setMessage(null);
 
     try {
-      const response = await axios.patch<{
-        week: Week;
-      }>(`${API_URL}/weeksdata/${selectedWeek}`, week);
-      const savedWeek = response.data.week;
+      const weekContent = { ...week };
+      delete weekContent._id;
+      const savedWeek = await apiRequest<Week>(
+        `/api/v1/weeks/${selectedWeek}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify(weekContent),
+        },
+      );
       setWeek(savedWeek);
       setWeeks((current) => current.map((item) => (item.weekNumber === selectedWeek ? savedWeek : item)));
       setMessage({ type: "success", text: "تم حفظ تغييرات الأسبوع بنجاح" });
-    } catch {
-      setMessage({ type: "error", text: "تعذر الحفظ. تأكدي من تشغيل الخادم ثم حاولي مرة أخرى" });
+    } catch (error) {
+      setMessage({
+        type: "error",
+        text:
+          error instanceof Error
+            ? error.message
+            : "تعذر حفظ التغييرات",
+      });
     } finally {
       setIsSaving(false);
     }

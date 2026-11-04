@@ -1,10 +1,20 @@
-import axios from "axios";
 import WeekSelector from "./../../components/WeekSelector";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Ai from './../../components/Ai'
 import ScrollReavel from "../../components/ScrollReavel";
 import { createPageMetadata } from "../../lib/seo";
+import { API_BASE_URL } from "../../lib/api";
+
+type WeekData = {
+  weekNumber: string;
+  babySize: string;
+  WhappenInBody: string;
+  sympotyms: string;
+  babyLooks: string;
+  option1?: string;
+  option2?: string;
+};
 type Props = {
   params: Promise<{
     id: string;
@@ -56,12 +66,18 @@ export default async function JourneyPage({
 
 
 
-  const weeksData = await axios.get(
-    `https://femora-backend-v3hw.onrender.com/api/v1/weeks/${id}`
-  );
+  const response = await fetch(`${API_BASE_URL}/api/v1/weeks/${id}`, {
+    cache: "no-store",
+  });
+  if (response.status === 404) notFound();
+  if (!response.ok) {
+    throw new Error(`تعذر تحميل بيانات الأسبوع (${response.status})`);
+  }
+  const weekData = (await response.json()) as WeekData | null;
+  if (!weekData) notFound();
 
   const weekNo = Number(
-    weeksData.data.weekNumber.replace("week_", "")
+    weekData.weekNumber.replace("week_", "")
   );
 
   return (
@@ -137,11 +153,11 @@ export default async function JourneyPage({
               {/* حجم الجنين */}
               <div className="mt-6">
                 <h3 className="text-xl font-semibold text-on-surface">
-                  {weeksData.data.babySize.slice(0, 30)}...
+                  {weekData.babySize.slice(0, 30)}...
                 </h3>
 
                 <p className="mt-2 leading-7 text-on-surface-variant">
-                  {weeksData.data.babySize}
+                  {weekData.babySize}
                 </p>
               </div>
 
@@ -168,7 +184,7 @@ export default async function JourneyPage({
               </div>
 
               <div className="mt-3 text-on-surface-variant">
-                {weeksData.data.babyLooks.split("\n").map((line: string, index: number) => (
+                {weekData.babyLooks.split("\n").map((line: string, index: number) => (
                   <p key={index}>
                     {line}
                   </p>
@@ -198,7 +214,7 @@ export default async function JourneyPage({
               </div>
 
               <div className="mt-3 text-on-surface-variant">
-                {weeksData.data.WhappenInBody.split("\n").map((line: string, index: number) => (
+                {weekData.WhappenInBody.split("\n").map((line: string, index: number) => (
                   <p key={index}>
                     {line}
                   </p>
@@ -228,7 +244,7 @@ export default async function JourneyPage({
               </div>
 
               <div className="mt-3 text-on-surface-variant">
-                {weeksData.data.sympotyms.split("\n").map((line: string, index: number) => (
+                {weekData.sympotyms.split("\n").map((line: string, index: number) => (
                   <p key={index}>
                     {line}
                   </p>
@@ -240,11 +256,11 @@ export default async function JourneyPage({
 
         <ScrollReavel>
           <section>
-            {weeksData.data.option1 ? (<section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
+            {weekData.option1 ? (<section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
               <div>
 
                 <div className="mt-3 text-on-surface-variant">
-                  {weeksData.data.option1.split("\n").map((line: string, index: number) => (
+                  {weekData.option1.split("\n").map((line: string, index: number) => (
                     <p key={index}>
                       {line}
                     </p>
@@ -253,11 +269,11 @@ export default async function JourneyPage({
 
               </div>
             </section>) : null
-            }        {weeksData.data.option2 ? (<section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
+            }        {weekData.option2 ? (<section className="mt-6 rounded-2xl border border-outline-variant bg-surface-container p-6 md:p-8">
               <div>
 
                 <div className="mt-3 text-on-surface-variant">
-                                   {weeksData.data.option2.split("\n").map((line: string, index: number) => (
+                                   {weekData.option2.split("\n").map((line: string, index: number) => (
                     <p key={index}>
                       {line}
                     </p>

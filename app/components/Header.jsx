@@ -1,28 +1,19 @@
 
 "use client";
 
-import { Show, UserButton, useUser } from "@clerk/nextjs";
+import { useAuth } from "./auth/AuthProvider";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const Header = () => {
   const pathname = usePathname();
-  const { user } = useUser();
-
-  const adminClerkIds = new Set(
-    (process.env.NEXT_PUBLIC_ADMIN_CLERK_IDS ?? "")
-    .split(",")
-    .map((clerkId) => clerkId.trim())
-    .filter(Boolean)
-  );
-
-  const isAdmin = !!user && adminClerkIds.has(user.id);
+  const { user, signOut } = useAuth();
 
   const navLinks = [
     { name: user ? "لوحة الحمل" : "الرئيسية", path: user ? "/dashboard" : "/" },
     { name: "أسبوع بأسبوع", path: "/journey" },
     { name: "قرة عيني", path: "/product" },
-    ...(isAdmin ? [{ name: "لوحة الإدارة", path: "/panel" }] : []),
+    ...(user?.role === "admin" ? [{ name: "لوحة الإدارة", path: "/panel" }] : []),
   ];
 
   return (
@@ -30,9 +21,6 @@ const Header = () => {
       <nav className="mx-auto flex w-full max-w-7xl flex-row-reverse items-center justify-between px-container-padding py-4">
         
 
-        <Show when={'signed-in'}>
-          <UserButton/>
-        </Show>
         <Link
           href={user ? "/dashboard" : "/"}
           className="flex cursor-pointer items-center gap-4"
@@ -78,12 +66,21 @@ const Header = () => {
         {/* CTA and authentication */}
         <div className="hidden items-center gap-3 md:flex">
           {user ? (
-            <Link
-              href="/dashboard"
-              className="inline-block rounded-full bg-primary-container px-6 py-2.5 text-sm font-semibold text-on-primary-container"
-            >
-              لوحة الحمل
-            </Link>
+            <>
+              <Link
+                href="/dashboard"
+                className="inline-block rounded-full bg-primary-container px-6 py-2.5 text-sm font-semibold text-on-primary-container"
+              >
+                لوحة الحمل
+              </Link>
+              <button
+                type="button"
+                onClick={signOut}
+                className="rounded-full px-3 py-2.5 text-sm font-semibold text-on-surface-variant transition-colors hover:bg-primary-container/40"
+              >
+                تسجيل الخروج
+              </button>
+            </>
           ) : (
             <>
               <Link
@@ -108,4 +105,3 @@ const Header = () => {
 };
 
 export default Header;
-

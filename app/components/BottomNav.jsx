@@ -1,27 +1,13 @@
 
 "use client";
 
-import {
-  Show,
-  UserButton,
-  useUser,
-} from "@clerk/nextjs";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAuth } from "./auth/AuthProvider";
 
 const BottomNav = () => {
   const pathname = usePathname();
-  const { user } = useUser();
-
-  const adminClerkIds = new Set(
-    (process.env.NEXT_PUBLIC_ADMIN_CLERK_IDS ?? "")
-    .split(",")
-    .map((clerkId) => clerkId.trim())
-    .filter(Boolean)
-  );
-
-  const isAdmin = !!user && adminClerkIds.has(user.id);
+  const { user, signOut } = useAuth();
 
   const navItems = [
     {
@@ -42,7 +28,7 @@ const BottomNav = () => {
       label: "قرة عيني",
       active: pathname.startsWith("/product"),
     },
-    ...(isAdmin
+    ...(user?.role === "admin"
       ? [{
           href: "/panel",
           icon: "admin_panel_settings",
@@ -133,28 +119,25 @@ const BottomNav = () => {
         <div className="mx-2 h-8 w-px bg-outline-variant/50" />
 
         {/* Authentication */}
-        <Show when="signed-in">
-          <div className="flex items-center justify-center px-1">
-            <UserButton
-              appearance={{
-                elements: {
-                  avatarBox: "h-9 w-9",
-                },
-              }}
-            />
-          </div>
-        </Show>
-
-        <Show when="signed-out">
+        {user ? (
+          <button
+            type="button"
+            onClick={signOut}
+            aria-label="تسجيل الخروج"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-container text-on-primary-container"
+          >
+            <span className="material-symbols-outlined">logout</span>
+          </button>
+        ) : (
           <div className="flex items-center gap-1">
             <Link
-              href="/signup"
+              href="/sign-in"
               className="rounded-xl bg-primary px-2.5 py-2 text-[11px] font-bold text-on-primary shadow-sm transition-transform hover:scale-105 active:scale-95"
             >
-              إنشاء حساب
+              تسجيل الدخول
             </Link>
           </div>
-        </Show>
+        )}
 
       </div>
     </nav>
@@ -162,4 +145,3 @@ const BottomNav = () => {
 };
 
 export default BottomNav;
-

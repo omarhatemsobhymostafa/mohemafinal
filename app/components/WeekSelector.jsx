@@ -1,30 +1,43 @@
 "use client";
 
-import axios from "axios";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { apiRequest } from "../lib/api";
+
+function getUniqueWeeks(weeks) {
+  const uniqueWeeks = new Map();
+
+  for (const week of weeks) {
+    if (week?.weekNumber && !uniqueWeeks.has(week.weekNumber)) {
+      uniqueWeeks.set(week.weekNumber, week);
+    }
+  }
+
+  return Array.from(uniqueWeeks.values()).sort(
+    (first, second) =>
+      Number(first.weekNumber.replace("week_", "")) -
+      Number(second.weekNumber.replace("week_", "")),
+  );
+}
 
 const WeekSelector = () => {
   const pathname = usePathname();
   const activeWeekRef = useRef(null);
 
   const [weeksData, setWeeksData] = useState([]);
+  const [loadError, setLoadError] = useState("");
 
   useEffect(() => {
-    const getWeeks = async () => {
-      try {
-        const response = await axios.get(
-          "https://mohema.onrender.com/weeksdata/"
-        );
-
-        setWeeksData(response.data);
-      } catch (error) {
-        console.error("Failed to fetch weeks:", error);
-      }
-    };
-
-    getWeeks();
+    apiRequest("/api/v1/weeks")
+      .then((weeks) => setWeeksData(getUniqueWeeks(weeks)))
+      .catch((error) =>
+        setLoadError(
+          error instanceof Error
+            ? error.message
+            : "تعذر تحميل بيانات الأسابيع",
+        ),
+      );
   }, []);
 
   // حفظ الأسبوع الحالي
@@ -153,6 +166,11 @@ return (
         );
       })}
     </div>
+    {loadError && (
+      <p className="mt-3 text-sm text-red-400" role="status">
+        {loadError}
+      </p>
+    )}
   </section>
 );
 

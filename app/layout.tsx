@@ -3,8 +3,7 @@ import { IBM_Plex_Sans_Arabic, Public_Sans } from "next/font/google";
 import "./globals.css";
 import Header from './components/Header';
 import BottomNav from './components/BottomNav';
-import UserSync from './components/UserSync';
-import { ClerkProvider } from "@clerk/nextjs";
+import { AuthProvider } from "./components/auth/AuthProvider";
 import {
   BASE_URL,
   DEFAULT_DESCRIPTION,
@@ -84,12 +83,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
 
       <body className="min-h-full flex flex-col">
-<ClerkProvider
-  signInUrl="/sign-in"
-  signUpUrl="/signup"
-  proxyUrl="https://femora.devs.surf/__clerk"
->
-          <UserSync />
+        <AuthProvider>
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
@@ -102,7 +96,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <div className="hidden md:block"> <Header /> </div>
           {children}
           <div className="md:hidden"> <BottomNav /> </div>
-        </ClerkProvider>
+        </AuthProvider>
       </body>
     </html>
   );

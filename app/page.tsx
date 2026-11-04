@@ -2,19 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useAuth } from "./components/auth/AuthProvider";
 
 export default function HomePage() {
   const router = useRouter();
-  const { isLoaded, user } = useUser();
+  const { user } = useAuth();
 
   useEffect(() => {
-    if (isLoaded && user) {
+    if (user) {
       router.replace("/dashboard");
     }
-  }, [isLoaded, router, user]);
+  }, [router, user]);
 
   const getStartedHref = user
     ? "/dashboard"

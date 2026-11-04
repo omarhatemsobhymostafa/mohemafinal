@@ -1,10 +1,17 @@
 "use client"
-import { SignInButton, useUser } from "@clerk/nextjs";
-import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Ai from './../components/Ai'
+import { useAuth } from "../components/auth/AuthProvider";
+import { apiRequest, ApiError } from "../lib/api";
+
+type Pregnancy = {
+  lastPeriodDate: string;
+  dueDate: string;
+  currentWeek: number;
+  currentDay: number;
+};
 
 function getPregnancyStats(lastPeriod: string) {
   if (!lastPeriod) return null;
@@ -35,38 +42,62 @@ function getPregnancyStats(lastPeriod: string) {
 
 export default function HomePage() {
     const router = useRouter();
-    const { user, isLoaded } = useUser();
+    const { user, status, error: authError } = useAuth();
     const [lastPeriod, setLastPeriod] = useState("");
+    const [pregnancy, setPregnancy] = useState<Pregnancy | null>(null);
+    const [isLoadingPregnancy, setIsLoadingPregnancy] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const [saveMessage, setSaveMessage] = useState("");
     const pregnancyStats = getPregnancyStats(lastPeriod);
 
     useEffect(() => {
-      if (isLoaded && !user) {
-        router.replace("/");
+      if (status === "unauthenticated") {
+        router.replace("/sign-in");
         return;
       }
 
-      if (!user) return;
+      if (status !== "authenticated") return;
 
-      axios.get(`https://mohema.onrender.com/users/${user.id}`)
-        .then((response) => {
-          const savedDate = response.data.user?.pregnancies?.[0]?.lastPeriod;
-          if (savedDate) {
-            setLastPeriod(new Date(savedDate).toISOString().slice(0, 10));
-          }
+      let cancelled = false;
+      apiRequest<{ pregnancies: Pregnancy[] }>("/api/v1/get-pregnancy")
+        .then(({ pregnancies }) => {
+          if (cancelled) return;
+          const currentPregnancy = pregnancies[0] ?? null;
+          setPregnancy(currentPregnancy);
+          setLastPeriod(
+            currentPregnancy?.lastPeriodDate
+              ? currentPregnancy.lastPeriodDate.slice(0, 10)
+              : "",
+          );
         })
-        .catch((error) => {
-          if (error.response?.status !== 404) {
-            console.error("User data fetch error:", error);
+        .catch((error: unknown) => {
+          if (cancelled) return;
+          if (error instanceof ApiError && error.status === 404) {
+            setPregnancy(null);
+            setLastPeriod("");
+            return;
           }
+          setSaveMessage(
+            error instanceof Error
+              ? error.message
+              : "تعذر تحميل بيانات الحمل.",
+          );
+        })
+        .finally(() => {
+          if (!cancelled) setIsLoadingPregnancy(false);
         });
-    }, [isLoaded, router, user]);
 
-    if (!isLoaded) {
+      return () => {
+        cancelled = true;
+      };
+    }, [router, status]);
+
+    if (status === "loading" || status === "error") {
       return (
         <main dir="rtl" className="min-h-screen bg-[#121214] text-[#f5eef0] flex items-center justify-center">
-          جارٍ التحقق من تسجيل الدخول...
+          {status === "loading"
+            ? "جارٍ التحقق من تسجيل الدخول..."
+            : authError ?? "تعذر الاتصال بالخادم للتحقق من الحساب. أعيدي تحميل الصفحة."}
         </main>
       );
     }
@@ -77,11 +108,9 @@ export default function HomePage() {
           <div className="text-center">
             <h1 className="mb-3 text-2xl font-bold">يجب تسجيل الدخول للوصول إلى لوحة الحمل</h1>
             <p className="mb-6 text-[#bdb5ba]">قم بتسجيل الدخول أولاً لعرض بيانات الحمل والرحلة الأسبوعية.</p>
-            <SignInButton mode="modal">
-              <button className="rounded-lg bg-[#6e2b3e] px-6 py-3 font-bold text-[#fff5f6]">
-                تسجيل الدخول
-              </button>
-            </SignInButton>
+            <Link href="/sign-in" className="rounded-lg bg-[#6e2b3e] px-6 py-3 font-bold text-[#fff5f6]">
+              تسجيل الدخول
+            </Link>
           </div>
         </main>
       );
@@ -94,16 +123,33 @@ export default function HomePage() {
       setSaveMessage("");
 
       try {
-        await axios.patch(`https://mohema.onrender.com/users/${user.id}/pregnancy`, {
-          lastPeriod,
-        });
+        const result = await apiRequest<{ pregnancy: Pregnancy }>(
+          pregnancy
+            ? "/api/v1/update-pregnancy"
+            : "/api/v1/create-pregnancy",
+          {
+            method: pregnancy ? "PATCH" : "POST",
+            body: JSON.stringify({ lastPeriodDate: lastPeriod }),
+          },
+        );
+        setPregnancy(result.pregnancy);
+        setLastPeriod(result.pregnancy.lastPeriodDate.slice(0, 10));
         setSaveMessage("تم حفظ التاريخ بنجاح");
       } catch (error) {
-        console.error("Pregnancy date save error:", error);
-        setSaveMessage("تعذر حفظ التاريخ");
+        setSaveMessage(
+          error instanceof Error ? error.message : "تعذر حفظ التاريخ",
+        );
       } finally {
         setIsSaving(false);
       }
+    }
+
+    if (isLoadingPregnancy) {
+      return (
+        <main dir="rtl" className="min-h-screen bg-[#121214] text-[#f5eef0] flex items-center justify-center">
+          جارٍ تحميل بيانات الحمل...
+        </main>
+      );
     }
 
   return (
@@ -133,7 +179,7 @@ export default function HomePage() {
             {/* User Info */}
             <div className="flex flex-col text-right">
               <span className="font-bold text-[14px] text-[#f5eef0] leading-snug">
-                {user?.fullName}
+                {user.name}
               </span>
 
               <span className="text-[11px] text-[#ffb2be] font-medium leading-none mt-0.5">
@@ -165,7 +211,7 @@ export default function HomePage() {
 
               {/* Title */}
               <h1 className="text-[21px] font-extrabold text-[#f5eef0] tracking-tight leading-snug">
-                أهلاً بيكي، {user?.firstName} 👋
+                أهلاً بيكي، {user.name.split(" ")[0]} 👋
               </h1>
 
               {/* Description */}
