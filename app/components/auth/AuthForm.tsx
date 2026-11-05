@@ -1,19 +1,22 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
 import { useAuth } from "./AuthProvider";
+import GoogleSignInButton from "./GoogleSignInButton";
 
 type AuthFormProps = {
   mode: "sign-in" | "sign-up";
 };
 
+const fieldClassName =
+  "mt-2 w-full rounded-xl border border-[#633642] bg-[#18171c] px-4 py-3 text-[#f5eef0] outline-none transition placeholder:text-[#8e878c] focus:border-[#ffb2be]";
+
 export default function AuthForm({ mode }: AuthFormProps) {
   const isSignUp = mode === "sign-up";
   const router = useRouter();
-  const { signIn, signUp, status, user } = useAuth();
+  const { signIn, signInWithGoogle, signUp, status, user } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,9 +25,12 @@ export default function AuthForm({ mode }: AuthFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (user) router.replace("/dashboard");
-  }, [router, user]);
+    if (status === "authenticated" && user) {
+      router.replace("/dashboard");
+    }
+  }, [router, status, user]);
 
+  // Keep the shared form simple while delegating each auth method to the provider.
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setMessage("");
@@ -41,7 +47,6 @@ export default function AuthForm({ mode }: AuthFormProps) {
       } else {
         await signIn(email.trim(), password);
       }
-      router.replace("/dashboard");
     } catch (submitError) {
       setMessage(
         submitError instanceof Error
@@ -53,44 +58,52 @@ export default function AuthForm({ mode }: AuthFormProps) {
     }
   }
 
+  async function handleGoogleCredential(credential: string) {
+    setMessage("");
+    setIsSubmitting(true);
+    try {
+      await signInWithGoogle(credential);
+    } catch (submitError) {
+      setMessage(
+        submitError instanceof Error
+          ? submitError.message
+          : "تعذر تسجيل الدخول بجوجل. حاولي مرة أخرى.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  const isBusy = isSubmitting || status === "loading";
+
   return (
     <main
       dir="rtl"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#151219] px-4 py-10 text-[#e8e0ea]"
+      className="flex min-h-[calc(100vh-5rem)] items-center justify-center bg-[#121214] px-4 py-10 pb-32 text-[#f5eef0] antialiased md:px-6"
     >
-      <Image
-        src="/artistic_cozy_intimate_motherhood_visual_a_silhouette_of_a_serene_pregnant.png"
-        alt=""
-        fill
-        priority
-        className="object-cover object-center opacity-30"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#151219]/70 to-[#151219]" />
-
-      <section className="relative z-10 w-full max-w-md rounded-3xl border border-[#f3bce1]/20 bg-[#211f26]/95 p-6 shadow-2xl backdrop-blur sm:p-8">
-        <Link href="/" className="mb-6 flex justify-center">
-          <Image
-            src="/logo.png"
-            alt="Femora"
-            width={140}
-            height={50}
-            className="h-14 w-auto object-contain"
-          />
+      <section className="w-full max-w-md rounded-3xl border border-[#302a2d] bg-[#211f26] p-6 shadow-[0_0_35px_rgba(255,178,190,0.08)] sm:p-8">
+        <Link
+          href="/"
+          className="mb-6 block text-center text-2xl font-extrabold tracking-tight text-[#ffb2be]"
+        >
+          Femora
         </Link>
 
-        <div className="mb-6 text-center">
-          <p className="mb-2 text-sm font-medium text-[#f3bce1]">
-            مساحتكِ الدافئة والآمنة
-          </p>
-          <h1 className="text-2xl font-bold">
-            {isSignUp ? "ابدئي رحلتكِ معنا" : "أهلًا بعودتكِ"}
+        <header className="mb-6 text-center">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-[#ffb2be]/30 bg-[#40242e] text-[#ffb2be]">
+            <span className="material-symbols-outlined">
+              {isSignUp ? "person_add" : "favorite"}
+            </span>
+          </div>
+          <h1 className="mt-4 text-2xl font-extrabold text-[#f5eef0]">
+            {isSignUp ? "ابدئي رحلتكِ مع فيمورا" : "أهلًا بعودتكِ"}
           </h1>
-          <p className="mt-2 text-sm leading-6 text-[#d2c2ca]">
+          <p className="mt-2 text-sm leading-6 text-[#bdb5ba]">
             {isSignUp
               ? "أنشئي حسابًا لمتابعة رحلة حملكِ أسبوعًا بأسبوع."
-              : "سجّلي الدخول لمتابعة بيانات حملكِ."}
+              : "سجّلي الدخول لمتابعة بيانات حملكِ المحفوظة."}
           </p>
-        </div>
+        </header>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           {isSignUp && (
@@ -104,7 +117,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
                 minLength={2}
                 value={name}
                 onChange={(event) => setName(event.target.value)}
-                className="mt-2 w-full rounded-xl border border-[#633642] bg-[#18171c] px-4 py-3 text-[#f5eef0] outline-none focus:border-[#f3bce1]"
+                className={fieldClassName}
                 placeholder="اسمكِ"
               />
             </label>
@@ -120,7 +133,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
               required
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              className="mt-2 w-full rounded-xl border border-[#633642] bg-[#18171c] px-4 py-3 text-[#f5eef0] outline-none focus:border-[#f3bce1]"
+              className={fieldClassName}
               placeholder="name@example.com"
               dir="ltr"
             />
@@ -137,7 +150,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
               minLength={isSignUp ? 8 : 1}
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="mt-2 w-full rounded-xl border border-[#633642] bg-[#18171c] px-4 py-3 text-[#f5eef0] outline-none focus:border-[#f3bce1]"
+              className={fieldClassName}
               placeholder={isSignUp ? "٨ أحرف على الأقل" : "كلمة المرور"}
             />
           </label>
@@ -157,22 +170,25 @@ export default function AuthForm({ mode }: AuthFormProps) {
                 minLength={8}
                 value={confirmPassword}
                 onChange={(event) => setConfirmPassword(event.target.value)}
-                className="mt-2 w-full rounded-xl border border-[#633642] bg-[#18171c] px-4 py-3 text-[#f5eef0] outline-none focus:border-[#f3bce1]"
+                className={fieldClassName}
                 placeholder="أعيدي كتابة كلمة المرور"
               />
             </label>
           )}
 
           {message && (
-            <p className="text-sm text-[#ffb2be]" role="alert">
+            <p
+              className="rounded-xl border border-red-400/20 bg-red-950/30 px-3 py-2 text-sm text-red-200"
+              role="alert"
+            >
               {message}
             </p>
           )}
 
           <button
             type="submit"
-            disabled={isSubmitting || status === "loading"}
-            className="w-full rounded-full bg-[#d6a1c5] px-6 py-3.5 font-bold text-[#151219] transition hover:bg-[#f3bce1] disabled:cursor-not-allowed disabled:opacity-60"
+            disabled={isBusy}
+            className="w-full rounded-xl bg-[#8c354e] px-6 py-3.5 font-bold text-[#fff5f6] shadow-[0_4px_18px_rgba(140,53,78,0.35)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting
               ? "جارٍ الإرسال..."
@@ -182,11 +198,25 @@ export default function AuthForm({ mode }: AuthFormProps) {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-[#d2c2ca]">
+        <div className="mt-5 space-y-4">
+          <div className="flex items-center gap-3 text-xs text-[#8e878c]">
+            <span className="h-px flex-1 bg-[#633642]" />
+            <span>أو تابعي باستخدام</span>
+            <span className="h-px flex-1 bg-[#633642]" />
+          </div>
+          <GoogleSignInButton
+            clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
+            disabled={isBusy}
+            onCredential={handleGoogleCredential}
+            onError={setMessage}
+          />
+        </div>
+
+        <p className="mt-6 text-center text-sm text-[#bdb5ba]">
           {isSignUp ? "لديكِ حساب بالفعل؟ " : "ليس لديكِ حساب؟ "}
           <Link
             href={isSignUp ? "/sign-in" : "/signup"}
-            className="font-semibold text-[#f3bce1] underline underline-offset-4"
+            className="font-bold text-[#ffb2be] underline underline-offset-4"
           >
             {isSignUp ? "تسجيل الدخول" : "إنشاء حساب"}
           </Link>
