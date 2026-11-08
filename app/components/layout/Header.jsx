@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useAuth } from "./auth/AuthProvider";
+import { useAuth } from "../auth/AuthProvider";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -11,13 +11,13 @@ const Header = () => {
 
   const navLinks = [
     { name: user ? "لوحة الحمل" : "الرئيسية", path: user ? "/dashboard" : "/" },
-    { name: "أسبوع بأسبوع", path: "/journey" },
+    { name: "أسبوع بأسبوع", path: "/journey/week_4" },
     { name: "قرة عيني", path: "/product" },
     ...(user?.role === "admin" ? [{ name: "لوحة الإدارة", path: "/panel" }] : []),
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-surface-variant bg-surface/80 shadow-sm backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-surface-variant bg-surface">
       <nav className="mx-auto flex w-full max-w-7xl flex-row-reverse items-center justify-between px-container-padding py-4">
         
 
@@ -29,17 +29,6 @@ const Header = () => {
             Femora
           </span>
         </Link>
-
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          className="rounded-full p-2 text-primary md:hidden"
-          aria-label="فتح القائمة"
-        >
-          <span className="material-symbols-outlined">
-            menu
-          </span>
-        </button>
 
         {/* Navigation */}
         <ul className="hidden flex-row-reverse items-center gap-8 md:flex">

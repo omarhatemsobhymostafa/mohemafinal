@@ -65,21 +65,25 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-arabic);
+  font-family: var(--font-ibm-plex-arabic), var(--font-public-sans), sans-serif;
 }
 
-body {
-  font-family: 'Public Sans', 'IBM Plex Sans Arabic', sans-serif;
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid var(--color-primary-container);
+  outline-offset: 3px;
 }
 
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
 
 .soft-floating {
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
@@ -111,4 +115,3 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-

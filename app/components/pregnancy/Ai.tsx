@@ -7,23 +7,29 @@
   };
 
   export default function Ai({ week = null }: AiProps) {
-    const [advice, setAdvice] = useState("");
-    const [loading, setLoading] = useState(true);
+    const [advice, setAdvice] = useState(() =>
+      week === null || week === undefined ? "اختاري أسبوع الحمل أولًا 🤍" : "",
+    );
+    const [loading, setLoading] = useState(week !== null && week !== undefined);
 
     useEffect(() => {
       let cancelled = false;
-      setAdvice("");
-      setLoading(true);
 
       async function loadAdvice() {
-        try {
-          if (week === null || week === undefined) {
-            if (!cancelled) {
-              setAdvice("اختاري أسبوع الحمل أولًا 🤍");
-              setLoading(false);
-            }
-            return;
+        if (week === null || week === undefined) {
+          if (!cancelled) {
+            setAdvice("اختاري أسبوع الحمل أولًا 🤍");
+            setLoading(false);
           }
+          return;
+        }
+
+        if (!cancelled) {
+          setAdvice("");
+          setLoading(true);
+        }
+
+        try {
 
           const currentWeek = Number(week);
 

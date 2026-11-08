@@ -11,7 +11,7 @@ type AuthFormProps = {
 };
 
 const fieldClassName =
-  "mt-2 w-full rounded-xl border border-[#633642] bg-[#18171c] px-4 py-3 text-[#f5eef0] outline-none transition placeholder:text-[#8e878c] focus:border-[#ffb2be]";
+  "mt-2 min-h-12 w-full min-w-0 rounded-xl border border-[#633642] bg-[#18171c] px-4 py-3 text-[#f5eef0] outline-none transition-colors placeholder:text-[#8e878c] focus:border-[#ffb2be]";
 
 export default function AuthForm({ mode }: AuthFormProps) {
   const isSignUp = mode === "sign-up";
@@ -75,13 +75,33 @@ export default function AuthForm({ mode }: AuthFormProps) {
   }
 
   const isBusy = isSubmitting || status === "loading";
+  const googleSignInOption = (
+    <div className="mt-5 space-y-4">
+      <div className="flex items-center gap-3 text-xs text-[#8e878c]">
+        <span className="h-px flex-1 bg-[#633642]" />
+        <span>
+          {isSignUp
+            ? "أو سجّلي باستخدام البريد الإلكتروني"
+            : "أو تابعي باستخدام"}
+        </span>
+        <span className="h-px flex-1 bg-[#633642]" />
+      </div>
+      <GoogleSignInButton
+        clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
+        disabled={isBusy}
+        onCredential={handleGoogleCredential}
+        onError={setMessage}
+      />
+      <br />
+    </div>
+  );
 
   return (
     <main
       dir="rtl"
-      className="flex min-h-[calc(100vh-5rem)] items-center justify-center bg-[#121214] px-4 py-10 pb-32 text-[#f5eef0] antialiased md:px-6"
+      className="flex min-h-dvh items-center justify-center bg-[#121214] px-3 py-8 pb-32 text-[#f5eef0] antialiased sm:px-6 sm:py-10"
     >
-      <section className="w-full max-w-md rounded-3xl border border-[#302a2d] bg-[#211f26] p-6 shadow-[0_0_35px_rgba(255,178,190,0.08)] sm:p-8">
+      <section className="w-full max-w-md rounded-2xl border border-[#302a2d] bg-[#211f26] p-5 sm:p-8">
         <Link
           href="/"
           className="mb-6 block text-center text-2xl font-extrabold tracking-tight text-[#ffb2be]"
@@ -104,6 +124,8 @@ export default function AuthForm({ mode }: AuthFormProps) {
               : "سجّلي الدخول لمتابعة بيانات حملكِ المحفوظة."}
           </p>
         </header>
+
+        {isSignUp && googleSignInOption}
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           {isSignUp && (
@@ -188,7 +210,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           <button
             type="submit"
             disabled={isBusy}
-            className="w-full rounded-xl bg-[#8c354e] px-6 py-3.5 font-bold text-[#fff5f6] shadow-[0_4px_18px_rgba(140,53,78,0.35)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+            className="min-h-12 w-full rounded-xl bg-[#8c354e] px-6 py-3 font-bold text-[#fff5f6] transition-colors hover:bg-[#a44760] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting
               ? "جارٍ الإرسال..."
@@ -198,19 +220,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           </button>
         </form>
 
-        <div className="mt-5 space-y-4">
-          <div className="flex items-center gap-3 text-xs text-[#8e878c]">
-            <span className="h-px flex-1 bg-[#633642]" />
-            <span>أو تابعي باستخدام</span>
-            <span className="h-px flex-1 bg-[#633642]" />
-          </div>
-          <GoogleSignInButton
-            clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
-            disabled={isBusy}
-            onCredential={handleGoogleCredential}
-            onError={setMessage}
-          />
-        </div>
+        {!isSignUp && googleSignInOption}
 
         <p className="mt-6 text-center text-sm text-[#bdb5ba]">
           {isSignUp ? "لديكِ حساب بالفعل؟ " : "ليس لديكِ حساب؟ "}

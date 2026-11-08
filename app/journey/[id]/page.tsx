@@ -1,7 +1,7 @@
-import WeekSelector from "./../../components/WeekSelector";
+import WeekSelector from "../../components/pregnancy/WeekSelector";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Ai from './../../components/Ai'
+import Ai from "../../components/pregnancy/Ai";
 import ScrollReavel from "../../components/ScrollReavel";
 import { createPageMetadata } from "../../lib/seo";
 import { API_BASE_URL } from "../../lib/api";

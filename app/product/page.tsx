@@ -100,16 +100,16 @@ export default function QoratEinyPage() {
       <ScrollReavel>
         <section className="overflow-hidden border-b border-outline-variant/40 bg-surface-container-lowest">
           <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-5 py-8 md:grid-cols-[1.05fr_0.95fr] md:gap-16 md:px-10 md:py-16">
-            <div className="relative order-1 overflow-hidden rounded-[1.75rem] border border-outline-variant/70 bg-surface-container shadow-[0_24px_70px_rgba(0,0,0,0.28)] md:order-2">
+            <div className="relative order-1 min-w-0 overflow-hidden rounded-2xl border border-outline-variant/70 bg-surface-container md:order-2">
               <Image
                 src="/product.jpg"
                 alt="قرة عيني - جورنال الحمل والأمومة"
                 width={800}
                 height={800}
-                className="aspect-square h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                className="aspect-square h-full w-full object-cover"
                 priority
               />
-              <div className="absolute bottom-4 right-4 rounded-full border border-white/25 bg-black/55 px-4 py-2 text-sm font-medium text-white backdrop-blur-md">
+              <div className="absolute bottom-3 right-3 rounded-full border border-white/25 bg-black/70 px-3 py-2 text-xs font-medium text-white sm:bottom-4 sm:right-4 sm:px-4 sm:text-sm">
                 من الحمل حتى سنتين
               </div>
             </div>
@@ -119,7 +119,7 @@ export default function QoratEinyPage() {
                 <p className="text-sm font-semibold tracking-[0.18em] text-secondary">
                   جورنال الحمل والأمومة
                 </p>
-                <h1 className="max-w-xl text-5xl font-bold leading-[1.15] text-primary md:text-7xl">
+                <h1 className="max-w-xl text-4xl font-bold leading-[1.2] text-primary sm:text-5xl lg:text-6xl">
                   احفظي تفاصيل البداية.
                 </h1>
 
@@ -129,13 +129,13 @@ export default function QoratEinyPage() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center gap-x-8 gap-y-3 border-y border-outline-variant/70 py-5">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-3 border-y border-outline-variant/70 py-5 sm:gap-x-8">
                 <div>
                   <p className="text-xs text-on-surface-variant">السعر</p>
                   <p className="mt-1 text-3xl font-bold text-on-surface">500 ج.م</p>
                 </div>
-                <div className="h-10 w-px bg-outline-variant/70" />
-                <p className="max-w-48 text-sm leading-6 text-on-surface-variant">
+                <div className="hidden h-10 w-px bg-outline-variant/70 sm:block" />
+                <p className="min-w-0 max-w-48 text-sm leading-6 text-on-surface-variant">
                   تغليف أنيق، وهدية تحفظينها لنفسك ولطفلك.
                 </p>
               </div>
@@ -144,7 +144,7 @@ export default function QoratEinyPage() {
                 href="https://wa.link/42g7lb"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-whatsapp-green px-8 py-4 text-base font-bold text-white shadow-[0_12px_30px_rgba(37,211,102,0.18)] transition-transform hover:-translate-y-1 sm:w-auto"
+                className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-xl bg-whatsapp-green px-6 py-3 text-base font-bold text-white transition-colors hover:brightness-95 sm:w-auto"
               >
                 <span className="material-symbols-outlined">chat</span>
                 اطلبي عبر واتساب
@@ -160,7 +160,7 @@ export default function QoratEinyPage() {
       </ScrollReavel>
 
       <ScrollReavel>
-        <section className="mx-auto max-w-6xl px-5 py-20 md:px-10 md:py-24">
+        <section className="mx-auto max-w-6xl px-5 py-12 sm:py-16 md:px-10 md:py-20">
           <div className="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end">
             <div>
               <p className="mb-3 text-sm font-semibold tracking-[0.16em] text-secondary">صُمم ليبقى</p>
@@ -197,7 +197,7 @@ export default function QoratEinyPage() {
       </ScrollReavel>
 
       <ScrollReavel>
-        <section className="border-y border-outline-variant/30 bg-primary-container px-5 py-16 text-center text-on-primary-container md:py-20">
+        <section className="border-y border-outline-variant/30 bg-primary-container px-5 py-12 text-center text-on-primary-container sm:py-16 md:py-20">
           <span className="material-symbols-outlined text-4xl">format_quote</span>
           <p className="mx-auto mt-4 max-w-3xl text-2xl font-semibold leading-relaxed md:text-4xl">
             كل ركلة، كل شعور، وكل حلم.. تستحق أن تُروى.
@@ -207,7 +207,7 @@ export default function QoratEinyPage() {
       </ScrollReavel>
 
       <ScrollReavel>
-        <section className="mx-auto max-w-6xl px-5 py-20 md:px-10 md:py-24">
+        <section className="mx-auto max-w-6xl px-5 py-12 sm:py-16 md:px-10 md:py-20">
           <div className="mb-12 text-center">
             <p className="mb-3 text-sm font-semibold tracking-[0.16em] text-secondary">جاهزة للبداية؟</p>
             <h2 className="text-3xl font-semibold text-primary md:text-4xl">ثلاث خطوات وتصل الحكاية.</h2>

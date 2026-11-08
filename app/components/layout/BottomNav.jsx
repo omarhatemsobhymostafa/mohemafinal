@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useAuth } from "./auth/AuthProvider";
+import { useAuth } from "../auth/AuthProvider";
 
 const BottomNav = () => {
   const pathname = usePathname();
@@ -48,15 +48,13 @@ const BottomNav = () => {
         rounded-[26px]
         border border-outline-variant/60
         bg-surface-container-lowest/95
-        px-5 py-2
-        pb-[calc(0.5rem+env(safe-area-inset-bottom))]
         shadow-[0_8px_30px_rgba(0,0,0,0.10)]
         backdrop-blur-xl
+        px-5 py-2
+        pb-[calc(0.5rem+env(safe-area-inset-bottom))]
       "
     >
       <div className="flex items-center justify-between">
-
-        {/* Navigation */}
         <div className="flex flex-1 items-center justify-around">
           {navItems.map((item) => (
             <Link
@@ -73,15 +71,13 @@ const BottomNav = () => {
                 }
               `}
             >
-              {/* Select Effect */}
               {item.active && (
                 <div
+                  aria-hidden="true"
                   className="
                     absolute inset-0
                     -z-10
-                    w-2/3
-                    h-11/12
-                    m-auto
+                    m-auto h-11/12 w-2/3
                     rounded-full
                     bg-primary-container
                     opacity-30
@@ -89,7 +85,6 @@ const BottomNav = () => {
                   "
                 />
               )}
-
               <span
                 className={`
                   material-symbols-outlined
@@ -101,10 +96,9 @@ const BottomNav = () => {
               >
                 {item.icon}
               </span>
-
               <span
                 className={`
-                  text-[10px]
+                  whitespace-nowrap text-[10px]
                   transition-all duration-200
                   ${item.active ? "font-bold" : "font-medium"}
                 `}
@@ -115,10 +109,8 @@ const BottomNav = () => {
           ))}
         </div>
 
-        {/* Separator */}
         <div className="mx-2 h-8 w-px bg-outline-variant/50" />
 
-        {/* Authentication */}
         {user ? (
           <button
             type="button"
@@ -132,6 +124,7 @@ const BottomNav = () => {
           <div className="flex items-center gap-1">
             <Link
               href="/sign-in"
+              aria-label="تسجيل الدخول"
               className="rounded-xl bg-primary px-2.5 py-2 text-[11px] font-bold text-on-primary shadow-sm transition-transform hover:scale-105 active:scale-95"
             >
               تسجيل الدخول

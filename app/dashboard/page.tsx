@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Ai from './../components/Ai'
+import Ai from "../components/pregnancy/Ai";
 import { useAuth } from "../components/auth/AuthProvider";
 import { apiRequest, ApiError } from "../lib/api";
 
@@ -104,7 +104,7 @@ export default function HomePage() {
 
     if (!user) {
       return (
-        <main dir="rtl" className="min-h-screen bg-[#121214] text-[#f5eef0] flex items-center justify-center px-6">
+        <main dir="rtl" className="min-h-screen bg-[#121214] text-[#f5eef0] flex items-center justify-center px-6 ">
           <div className="text-center">
             <h1 className="mb-3 text-2xl font-bold">يجب تسجيل الدخول للوصول إلى لوحة الحمل</h1>
             <p className="mb-6 text-[#bdb5ba]">قم بتسجيل الدخول أولاً لعرض بيانات الحمل والرحلة الأسبوعية.</p>
@@ -155,19 +155,19 @@ export default function HomePage() {
   return (
     <main
       dir="rtl"
-      className="min-h-screen bg-[#121214] text-[#f5eef0] antialiased"
+      className="min-h-screen bg-[#121214] text-[#f5eef0] antialiased "
     >
       <div
         id="app-wrapper"
-        className="w-full max-w-97.5 mx-auto min-h-screen relative flex flex-col bg-[#121214] shadow-2xl overflow-x-hidden pb-24"
+        className="relative mx-auto flex min-h-dvh w-full max-w-[1440px] flex-col overflow-x-hidden bg-[#121214] pb-24 lg:border-x lg:border-[#302a2d]"
       >
         {/* =========================
             Header
         ========================== */}
-        <header className="sticky top-0 right-0 left-0 h-16 bg-[#121214]/90 backdrop-blur-xl z-40 flex items-center justify-between px-4 border-b border-[#302a2d] shadow-md">
+        <header className="sticky top-0 right-0 left-0 z-40 flex h-16 items-center justify-between border-b border-[#302a2d] bg-[#121214] px-4 lg:px-8">
           <div className="flex items-center gap-3">
             {/* Profile Avatar */}
-            <div className="relative w-10 h-10 rounded-full bg-[#40242e] text-[#ffb2be] flex items-center justify-center font-bold text-sm shadow-md ring-1 ring-[#ffb2be]/30">
+            <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#40242e] text-sm font-bold text-[#ffb2be] ring-1 ring-[#ffb2be]/30">
               <span className="material-symbols-outlined text-[20px]">
                 person
               </span>
@@ -192,12 +192,12 @@ export default function HomePage() {
         {/* =========================
             Main Content
         ========================== */}
-        <main className="w-full px-4 pt-4 pb-6 flex flex-col gap-4">
+        <section className="grid w-full grid-cols-1 items-start gap-4 px-4 pb-6 pt-4 sm:gap-5 lg:px-8 xl:grid-cols-12 xl:gap-6">
 
           {/* =========================
               Welcome Card
           ========================== */}
-          <section className="relative z-10 w-full rounded-2xl bg-[#211f26] p-4 border border-[#302a2d] flex flex-col gap-3 shadow-[0_0_25px_rgba(255,178,190,0.08)]">
+          <section className="relative z-10 flex w-full flex-col gap-3 rounded-2xl border border-[#302a2d] bg-[#211f26] p-4 sm:p-5 xl:col-span-12 xl:flex-row xl:items-center xl:justify-between xl:px-7 xl:py-6">
             <div className="space-y-1.5">
 
               {/* Badge */}
@@ -211,7 +211,7 @@ export default function HomePage() {
 
               {/* Title */}
               <h1 className="text-[21px] font-extrabold text-[#f5eef0] tracking-tight leading-snug">
-                أهلاً بيكي، {user.name.split(" ")[0]} 👋
+                أهلاً بيكي، {user.name.split(" ")[0]} 
               </h1>
 
               {/* Description */}
@@ -219,12 +219,32 @@ export default function HomePage() {
                 نتمنى لكِ ولطفلكِ يوماً مريحاً مفعماً بالسكينة والرضا 🌸
               </p>
             </div>
+            <div className="hidden min-w-[280px] items-center gap-3 rounded-xl border border-[#633642]/50 bg-[#18171c] px-4 py-3 xl:flex">
+              <span className="material-symbols-outlined flex h-11 w-11 shrink-0  items-center content-center justify-center rounded-full bg-[#40242e] text-center text-[22px] text-[#ffb2be]">
+                calendar_month
+              </span>
+              <div className="min-w-0">
+                <span className="block text-[11px] text-[#8e878c]">
+                  {pregnancyStats ? "رحلتكِ الآن" : "ابدئي رحلتكِ"}
+                </span>
+                <span className="mt-1 block text-sm font-bold text-[#f5eef0]">
+                  {pregnancyStats
+                    ? `الأسبوع ${pregnancyStats.week} من الحمل`
+                    : "حددي تاريخ آخر دورة"}
+                </span>
+                {pregnancyStats && (
+                  <span className="mt-0.5 block text-xs text-[#ffb2be]">
+                    موعد الولادة المتوقع: {pregnancyStats.dueDate}
+                  </span>
+                )}
+              </div>
+            </div>
           </section>
 
           {/* =========================
               Pregnancy Calculator
           ========================== */}
-          <section className="w-full rounded-2xl bg-[#232128] p-4 border border-[#633642]/40 flex flex-col gap-3 relative overflow-hidden">
+          <section className="relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl border border-[#633642]/40 bg-[#232128] p-4 sm:p-5 xl:col-span-5 xl:p-6">
 
             {/* Header */}
             <div className="flex items-center justify-between">
@@ -287,14 +307,14 @@ export default function HomePage() {
                   type="date"
                   value={lastPeriod}
                   onChange={(event) => setLastPeriod(event.target.value)}
-                  className="w-full rounded-lg bg-[#211f24] border border-[#ffb2be]/30 px-3 py-2 text-[#ffb2be] outline-none focus:border-[#ffb2be]"
+                  className="min-h-11 w-full rounded-lg border border-[#ffb2be]/30 bg-[#211f24] px-3 py-2 text-[#ffb2be] outline-none focus:border-[#ffb2be]"
                 />
 
                 <button
                   type="button"
                   onClick={savePregnancyDate}
                   disabled={!user || !lastPeriod || isSaving}
-                  className="w-full rounded-lg bg-[#6e2b3e] px-3 py-2 text-[12px] font-bold text-[#fff5f6] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="min-h-11 w-full rounded-lg bg-[#6e2b3e] px-3 py-2 text-[12px] font-bold text-[#fff5f6] transition-colors hover:bg-[#8c354e] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isSaving ? "جارٍ الحفظ..." : "حفظ التاريخ"}
                 </button>
@@ -328,7 +348,7 @@ export default function HomePage() {
           {/* =========================
               Pregnancy Tracking
           ========================== */}
-          <section className="w-full rounded-2xl bg-[#232128] p-4 border border-[#302a2d] flex flex-col gap-4 relative overflow-hidden">
+          <section className="relative flex w-full min-w-0 flex-col gap-4 overflow-hidden rounded-2xl border border-[#302a2d] bg-[#232128] p-4 sm:p-5 xl:col-span-7 xl:p-6">
 
             {/* Decorative Glow */}
             {/* Card Header */}
@@ -337,7 +357,7 @@ export default function HomePage() {
               <div className="flex items-center gap-2.5">
 
                 {/* Icon */}
-                <div className="w-10 h-10 rounded-xl bg-[#40242e] text-[#ffb2be] flex items-center justify-center shadow-md border border-[#ffb2be]/30">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#ffb2be]/30 bg-[#40242e] text-[#ffb2be]">
                   <span className="material-symbols-outlined text-[22px]">
                     pregnant_woman
                   </span>
@@ -349,7 +369,7 @@ export default function HomePage() {
                   </span>
 
                   <h2 className="text-[17px] font-bold text-[#f5eef0] flex items-center gap-1.5">
-                    حملي 🤰
+                    حملي 
                   </h2>
                 </div>
               </div>
@@ -375,7 +395,7 @@ export default function HomePage() {
               </div>
 
               {/* Baby Size */}
-              <div className="col-span-1 flex flex-col items-center justify-center p-2 rounded-lg bg-[#211f24] border border-[#302a2d] shadow-inner text-center">
+              <div className="col-span-1 flex flex-col items-center justify-center rounded-lg border border-[#302a2d] bg-[#211f24] p-2 text-center">
                 <span className="text-2xl font-medium text-[#ffb2be]">
                   {pregnancyStats?.remainingWeeks ?? 40}
                 </span>
@@ -412,7 +432,7 @@ export default function HomePage() {
               {/* Progress Bar */}
               <div className="relative w-full h-2.5 bg-[#17161b] rounded-full overflow-hidden border border-[#302a2d] p-px">
                 <div
-                  className="h-full bg-[#ffb2be] rounded-full shadow-[0_0_10px_rgba(255,178,190,0.5)]"
+                  className="h-full rounded-full bg-[#ffb2be]"
                   style={{ width: `${pregnancyStats?.progress ?? 0}%` }}
                 />
               </div>
@@ -455,7 +475,7 @@ export default function HomePage() {
             ========================== */}
             <Link
               href={`/journey/week_${pregnancyStats?.week}`}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#8c354e] hover:brightness-110 text-[#fff5f6] font-bold text-[13px] shadow-[0_4px_18px_rgba(140,53,78,0.4)] active:scale-[0.98] transition-all border border-[#ffb2be]/30"
+              className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-[#ffb2be]/30 bg-[#8c354e] py-3 text-[13px] font-bold text-[#fff5f6] transition-colors hover:bg-[#a44760]"
             >
               <span>
                 متابعة تفاصيل الحمل
@@ -468,7 +488,7 @@ export default function HomePage() {
           </section>
 
 
-        </main>
+        </section>
 
       </div>
     </main>

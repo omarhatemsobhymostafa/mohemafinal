@@ -210,7 +210,7 @@ export default function PanelPage() {
         </header>
 
         <section className="grid min-w-0 flex-1 gap-4 sm:gap-5 lg:grid-cols-[260px_minmax(0,1fr)]">
-          <aside className="min-w-0 rounded-2xl border border-[#302a2d] bg-gradient-to-b from-[#211f26] to-[#1a191d] p-3 shadow-[0_0_25px_rgba(255,178,190,0.05)] sm:p-4">
+          <aside className="min-w-0 rounded-2xl border border-[#302a2d] bg-[#1a191d] p-3 sm:p-4">
             <div className="mb-4 flex items-center justify-between">
               <div>
                 <p className="text-[11px] font-bold text-[#8e878c]">المحتوى المتاح</p>
@@ -220,7 +220,7 @@ export default function PanelPage() {
             </div>
             <label className="relative mb-4 block">
               <span className="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[18px] text-[#8e878c]">search</span>
-              <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="ابحثي برقم الأسبوع" className="w-full rounded-xl border border-[#302a2d] bg-[#18171c] py-2.5 pr-10 pl-3 text-sm text-[#f5eef0] outline-none transition placeholder:text-[#70696e] focus:border-[#ffb2be]/60" />
+              <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="ابحثي برقم الأسبوع" className="min-h-11 w-full rounded-xl border border-[#302a2d] bg-[#18171c] py-2.5 pr-10 pl-3 text-sm text-[#f5eef0] outline-none transition placeholder:text-[#70696e] focus:border-[#ffb2be]/60" />
             </label>
             <div className="hide-scrollbar flex max-h-[190px] min-w-0 flex-row gap-2 overflow-x-auto overflow-y-hidden pb-1 lg:max-h-[540px] lg:flex-col lg:overflow-y-auto lg:overflow-x-hidden">
               {isLoading ? (
@@ -232,7 +232,7 @@ export default function PanelPage() {
                   const number = item.weekNumber.replace("week_", "");
                   const isActive = item.weekNumber === selectedWeek;
                   return (
-                    <button key={item.weekNumber} type="button" onClick={() => selectWeek(item.weekNumber)} className={`flex shrink-0 items-center justify-between rounded-xl border px-3 py-3 text-right text-sm transition lg:w-full ${isActive ? "border-[#ffb2be]/60 bg-[#3a2027] text-[#ffb2be] shadow-[0_0_14px_rgba(255,178,190,0.1)]" : "border-[#302a2d] bg-[#18171c] text-[#bdb5ba] hover:border-[#633642] hover:text-[#f5eef0]"}`}>
+                    <button key={item.weekNumber} type="button" onClick={() => selectWeek(item.weekNumber)} className={`flex min-h-11 shrink-0 items-center justify-between rounded-xl border px-3 py-3 text-right text-sm transition-colors lg:w-full ${isActive ? "border-[#ffb2be]/60 bg-[#3a2027] text-[#ffb2be]" : "border-[#302a2d] bg-[#18171c] text-[#bdb5ba] hover:border-[#633642] hover:text-[#f5eef0]"}`}>
                       <span>الأسبوع {number}</span>
                       <span className={`material-symbols-outlined text-[17px] ${isActive ? "text-[#ffb2be]" : "text-[#70696e]"}`}>{isActive ? "edit" : "chevron_left"}</span>
                     </button>
@@ -243,7 +243,7 @@ export default function PanelPage() {
           </aside>
 
           <div className="min-w-0">
-            <section className="mb-4 rounded-2xl border border-[#633642]/60 bg-gradient-to-r from-[#2c1e24] via-[#211f26] to-[#1e1c22] p-3 sm:mb-5 sm:p-5">
+            <section className="mb-4 rounded-2xl border border-[#633642]/60 bg-[#211f26] p-3 sm:mb-5 sm:p-5">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-3">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#ffb2be]/30 bg-[#40242e] text-[#ffb2be]"><span className="material-symbols-outlined text-[25px]">calendar_month</span></div>
@@ -257,7 +257,7 @@ export default function PanelPage() {
             </section>
 
             <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1.4fr)_minmax(280px,0.6fr)] sm:gap-5">
-              <section className="min-w-0 rounded-2xl border border-[#302a2d] bg-gradient-to-b from-[#232128] to-[#1c1b21] p-3 sm:p-6">
+              <section className="min-w-0 rounded-2xl border border-[#302a2d] bg-[#211f26] p-3 sm:p-6">
                 <div className="mb-6 flex items-start justify-between gap-3 border-b border-[#302a2d] pb-5">
                   <div>
                     <p className="text-[11px] font-bold text-[#ffb2be]">بيانات الأسبوع</p>
@@ -276,7 +276,7 @@ export default function PanelPage() {
                 </div>
                 <div className="mt-6 flex flex-col-reverse gap-3 border-t border-[#302a2d] pt-5 sm:flex-row sm:items-center sm:justify-between">
                   <div aria-live="polite" className={`text-sm ${message?.type === "error" ? "text-red-300" : "text-[#b9efc5]"}`}>{message?.text}</div>
-                  <button type="button" onClick={saveWeek} disabled={isSaving || isLoading || !week.weekNumber} className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#6e2b3e] via-[#8c354e] to-[#6e2b3e] px-5 py-3 text-sm font-bold text-[#fff5f6] shadow-[0_4px_18px_rgba(140,53,78,0.35)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50">
+                  <button type="button" onClick={saveWeek} disabled={isSaving || isLoading || !week.weekNumber} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#8c354e] px-5 py-3 text-sm font-bold text-[#fff5f6] transition-colors hover:bg-[#a44760] disabled:cursor-not-allowed disabled:opacity-50">
                     <span className="material-symbols-outlined text-[18px]">{isSaving ? "sync" : "save"}</span>
                     {isSaving ? "جارٍ حفظ التغييرات..." : "حفظ تغييرات الأسبوع"}
                   </button>

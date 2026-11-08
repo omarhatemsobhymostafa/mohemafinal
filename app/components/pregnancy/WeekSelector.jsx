@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { apiRequest } from "../lib/api";
+import { apiRequest } from "../../lib/api";
 
 function getUniqueWeeks(weeks) {
   const uniqueWeeks = new Map();

@@ -23,7 +23,7 @@ export default function HomePage() {
   return (
     <main
       dir="rtl"
-      className="relative flex min-h-screen w-full flex-col overflow-hidden bg-[#151219] text-[#e8e0ea] antialiased"
+      className="relative flex min-h-dvh w-full flex-col overflow-hidden bg-[#151219] text-[#e8e0ea] antialiased"
     >
       <div className="pointer-events-none fixed inset-0 z-0 h-full w-full overflow-hidden">
         <Image
@@ -37,7 +37,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-linear-to-t from-[#151219] via-[#151219]/75 to-transparent" />
       </div>
 
-<div className="relative z-10 flex min-h-screen flex-col justify-between px-5 py-6 sm:px-8">
+<div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col justify-between px-4 py-5 sm:px-8 sm:py-6 lg:px-12">
   <header className="flex items-center justify-center pt-2 text-center">
     <div className="flex h-18 w-auto items-center justify-center overflow-hidden rounded-full border border-[#f3bce1]/20 bg-[#52202B]/40 px-5">
       <Image
@@ -53,34 +53,35 @@ export default function HomePage() {
 
         <section className="flex grow flex-col justify-end pb-8 text-right">
           <div className="mx-auto flex w-full max-w-md flex-col gap-3.5">
-            <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[#f3bce1]/25 bg-[#221e26]/80 px-3.5 py-1.5 shadow-sm backdrop-blur-md">
+            <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[#f3bce1]/25 bg-[#221e26]/80 px-3.5 py-1.5">
               <span className="text-sm text-[#f3bce1]">✿</span>
               <span className="text-[10px] font-medium text-[#e8e0ea]">
-                رحلتكِ لللأمومة، خطوة بخطوة              </span>
+                رحلتكِ للأمومة، خطوة بخطوة
+              </span>
             </div>
 
-            <h1 className="text-[30px] font-semibold leading-[1.35] text-[#e8e0ea] drop-shadow-md sm:text-[40px]">
+            <h1 className="text-3xl font-semibold leading-[1.35] text-[#e8e0ea] sm:text-4xl lg:text-5xl">
               <span className="text-[#f3bce1] underline decoration-[#f3bce1]/40 underline-offset-8">
                 رحلتك {" "}
               </span>
               تبدأ من هنا
               <br />
-              <span className="text-[24px] font-normal text-[#d2c2ca] sm:text-[28px]">
+              <span className="text-xl font-normal text-[#d2c2ca] sm:text-2xl">
                 لحظة بلحظة، نرافقكِ في أجمل رحلة.
               </span>
             </h1>
 
-            <p className="pt-0.5 text-sm leading-relaxed text-[#d2c2ca]/90 drop-shadow-sm sm:text-base">
+            <p className="pt-0.5 text-sm leading-relaxed text-[#d2c2ca]/90 sm:text-base">
               Femora يساعدكِ تتابعي حملكِ أسبوعًا بأسبوع، وتعرفي كل جديد عن رحلتكِ ببساطة وهدوء.
             </p>
 
             <div className="mt-4 flex flex-col gap-3">
               <Link
                 href={getStartedHref}
-                className="flex w-full items-center justify-center gap-2.5 rounded-full border border-[#ffd7f0]/40 bg-[#d6a1c5] px-6 py-4 font-semibold text-[#151219] shadow-xl shadow-[#d6a1c5]/25 transition-all duration-200 hover:bg-[#f3bce1] active:scale-[0.98]"
+                className="flex min-h-12 w-full items-center justify-center gap-2.5 rounded-full border border-[#ffd7f0]/40 bg-[#d6a1c5] px-6 py-3 font-semibold text-[#151219] transition-colors hover:bg-[#f3bce1]"
               >
                 <span className="tracking-wide"> ابدئي رحلتكِ </span>
-                <span className="text-xl transition-transform font-extrabold">←</span>
+                <span className="text-xl font-extrabold">←</span>
               </Link>
 
               <Link

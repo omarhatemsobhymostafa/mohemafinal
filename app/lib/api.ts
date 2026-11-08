@@ -28,10 +28,12 @@ export async function apiRequest<T>(
 
   if (typeof window !== "undefined") {
     const token = window.localStorage.getItem(AUTH_TOKEN_KEY);
-    if (token) headers.set("Authorization", `Bearer ${token}`);
+    if (token) {
+      headers.set("Authorization", "Bearer " + token);
+    }
   }
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(API_BASE_URL + path, {
     ...options,
     headers,
   });
@@ -45,7 +47,7 @@ export async function apiRequest<T>(
       throw new ApiError(
         response.ok
           ? "استجابة الخادم غير صالحة"
-          : `استجابة غير متوقعة من الخادم (HTTP ${response.status}). يرجى مراجعة إعدادات الخادم.`,
+          : "استجابة غير متوقعة من الخادم (HTTP " + response.status + "). يرجى مراجعة إعدادات الخادم.",
         response.status,
       );
     }

@@ -41,48 +41,57 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<AuthStatus>("loading");
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
+ 
+useEffect(() => {
+  let cancelled = false;
+
+  async function checkSession() {
     const token = window.localStorage.getItem(AUTH_TOKEN_KEY);
 
     if (!token) {
-      queueMicrotask(() => {
-        if (!cancelled) setStatus("unauthenticated");
-      });
-      return () => {
-        cancelled = true;
-      };
+      if (!cancelled) {
+        setStatus("unauthenticated");
+      }
+      return;
     }
 
-    apiRequest<{ user: AuthUser }>("/api/v1/me")
-      .then(({ user: currentUser }) => {
-        if (cancelled) return;
-        setUser(currentUser);
-        setStatus("authenticated");
-      })
-      .catch((requestError: unknown) => {
-        if (cancelled) return;
-        if (
-          requestError instanceof ApiError &&
-          requestError.status === 401
-        ) {
-          window.localStorage.removeItem(AUTH_TOKEN_KEY);
-          setStatus("unauthenticated");
-          return;
-        }
+    try {
+      const result = await apiRequest<{ user: AuthUser }>("/api/v1/me");
 
-        setError(
-          requestError instanceof Error
-            ? requestError.message
-            : "تعذر التحقق من الحساب.",
-        );
-        setStatus("error");
-      });
+      if (cancelled) return;
 
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+      setUser(result.user);
+      setError(null);
+      setStatus("authenticated");
+    } catch (requestError: unknown) {
+      if (cancelled) return;
+
+      if (
+        requestError instanceof ApiError &&
+        requestError.status === 401
+      ) {
+        window.localStorage.removeItem(AUTH_TOKEN_KEY);
+        setUser(null);
+        setStatus("unauthenticated");
+        return;
+      }
+
+      setError(
+        requestError instanceof Error
+          ? requestError.message
+          : "تعذر التحقق من الحساب.",
+      );
+      setStatus("error");
+    }
+  }
+
+  void checkSession();
+
+  return () => {
+    cancelled = true;
+  };
+}, []);
+
 
   const saveSession = useCallback((token: string, nextUser: AuthUser) => {
     window.localStorage.setItem(AUTH_TOKEN_KEY, token);

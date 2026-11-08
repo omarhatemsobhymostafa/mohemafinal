@@ -1,5 +1,5 @@
 
-import WeekSelector from "./../components/WeekSelector";
+import WeekSelector from "../components/pregnancy/WeekSelector";
 import { createPageMetadata } from "../lib/seo";
 
 export const metadata = createPageMetadata({
@@ -46,4 +46,3 @@ export default async function JourneyPage() {
     </main>
   );
 }
-
